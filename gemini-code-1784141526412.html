@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IN-DETAIL | Mobilní čištění interiérů firemních vozidel</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Manrope:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- DESIGN SYSTEM & PROMĚNNÉ --- */
+        :root {
+            --primary-black: #111111;
+            --secondary-graphite: #262626;
+            --accent-gold: #B89B5E;
+            --accent-gold-hover: #cfb172;
+            --bg-light: #F7F7F5;
+            --text-dark: #3A3A3A;
+            --text-light: #FFFFFF;
+            --text-muted: #A0A0A0;
+            --font-headings: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Manrope', sans-serif;
+            --transition-smooth: all 0.3s ease;
+        }
+
+        /* --- ZÁKLADNÍ RESET --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-top: 90px; /* Kompenzace pro fixní menu */
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-headings);
+            font-weight: 600;
+            color: var(--primary-black);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition-smooth);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- TLAČÍTKA --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 8px;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-gold);
+            color: var(--primary-black);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-gold-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 1px solid var(--text-light);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--text-light);
+            color: var(--primary-black);
+            transform: translateY(-2px);
+        }
+
+        /* --- HLAVIČKA (STICKY HEADER & NAV) --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(17, 17, 17, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(184, 155, 94, 0.2);
+            padding: 20px 0;
+            transition: var(--transition-smooth);
+        }
+
+        /* Třída přidaná pomocí JS při odscrolování */
+        header.scrolled {
+            padding: 12px 0;
+            background-color: rgba(11, 11, 11, 0.98);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+        }
+
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-placeholder {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-placeholder .logo-id {
+            font-family: var(--font-headings);
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--text-light);
+            border-right: 1px solid var(--accent-gold);
+            padding-right: 10px;
+        }
+
+        .logo-placeholder .logo-id span {
+            color: var(--accent-gold);
+        }
+
+        .logo-placeholder .logo-text {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            line-height: 1.2;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav ul a {
+            color: var(--text-light);
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        nav ul a:hover, nav ul a.active {
+            color: var(--accent-gold);
+        }
+
+        /* Okamžitý telefonní kontakt v hlavičce */
+        .nav-contact {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .nav-contact .phone-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            letter-spacing: 1px;
+        }
+
+        .nav-contact .phone-number {
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--text-light);
+        }
+
+        .nav-contact .phone-number:hover {
+            color: var(--accent-gold);
+        }
+
+        /* --- HERO SEKCE --- */
+        .hero {
+            padding: 100px 0;
+            background-color: var(--primary-black);
+            color: var(--text-light);
+            text-align: center;
+            position: relative;
+            background-image: linear-gradient(rgba(17, 17, 17, 0.8), rgba(17, 17, 17, 0.95)), url('https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            min-height: calc(100vh - 90px);
+        }
+
+        .hero h1 {
+            color: var(--text-light);
+            font-size: 64px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero p.subtitle {
+            font-size: 18px;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .hero p.description {
+            font-size: 18px;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto 40px auto;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .hero-phone-alert {
+            background-color: rgba(184, 155, 94, 0.1);
+            border: 1px solid var(--accent-gold);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 15px;
+        }
+
+        .hero-phone-alert strong a {
+            color: var(--accent-gold);
+        }
+
+        /* --- SEKCE - ZÁKLADNÍ VZHLED --- */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-tag {
+            color: var(--accent-gold);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 45px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        /* --- SEKCE BENEFITY --- */
+        .benefits-grid {
+            display: grid;
+            grid-template-cols: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .benefit-card {
+            background-color: var(--text-light);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border-top: 3px solid transparent;
+            transition: var(--transition-smooth);
+        }
+
+        .benefit-card:hover {
+            border-top: 3px solid var(--accent-gold);
+            transform: translateY(-5px);
+        }
+
+        .benefit-icon {
+            font-size: 40px;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+        }
+
+        .benefit-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        /* --- SEKCE PRO FIRMY --- */
+        .companies {
+            background-color: var(--secondary-graphite);
+            color: var(--text-light);
+        }
+
+        .companies .section-title {
+            color: var(--text-light);
+        }
+
+        .companies-layout {
+            display: grid;
+            grid-template-cols: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .companies-content h3 {
+            color: var(--text-light);
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .companies-list {
+            display: grid;
+            grid-template-cols: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .company-item {
+            background-color: rgba(255,255,255,0.03);
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 2px solid var(--accent-gold);
+        }
+
+        .company-item h4 {
+            color: var(--text-light);
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .company-item p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .companies-image {
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(184, 155, 94, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        /* --- SEKCE SLUŽBY --- */
+        .services-grid {
+            display: grid;
+            grid-template-cols: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .service-card {
+            background: var(--text-light);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .service-body {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .service-body h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .service-features {
+            margin-top: 20px;
+            flex-grow: 1;
+        }
+
+        .service-features li {
+            font-size: 14px;
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            color: var(--accent-gold);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* --- JAK TO FUNGUJE --- */
+        .how-it-works {
+            background-color: var(--primary-black);
+            color: var(--text-light);
+        }
+
+        .how-it-works .section-title {
+            color: var(--text-light);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-cols: repeat(4, 1fr);
+            gap: 30px;
+            position: relative;
+        }
+
+        .step-card {
+            position: relative;
+        }
+
+        .step-number {
+            font-family: var(--font-headings);
+            font-size: 72px;
+            color: rgba(184, 155, 94, 0.15);
+            line-height: 1;
+            margin-bottom: -15px;
+            font-weight: bold;
+        }
+
+        .step-card h3 {
+            color: var(--text-light);
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .step-card p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* --- INTERAKTIVNÍ SROVNÁVACÍ GALERIE (PŘED / PO) --- */
+        .gallery-section {
+            background-color: var(--bg-light);
+        }
+
+        .comparison-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            height: 500px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border: 2px solid var(--accent-gold);
+        }
+
+        .comparison-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Obrázek PO (Spodní vrstva) */
+        .img-after {
+            background-image: url('https://images.unsplash.com/photo-1486006920555-c77dce18193b?q=80&w=1200&auto=format&fit=crop'); /* Čistý, vyleštěný interiér */
+        }
+
+        /* Obrázek PŘED (Svrchní posuvná vrstva) */
+        .img-before {
+            background-image: url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=1200&auto=format&fit=crop'); /* Zaprášený či rozpracovaný interiér */
+            width: 50%; /* Výchozí šířka */
+        }
+
+        /* Posuvník (Slider bar) */
+        .slider-handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background-color: var(--accent-gold);
+            cursor: ew-resize;
+            z-index: 10;
+        }
+
+        /* Kolečko na posuvníku */
+        .slider-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 44px;
+            height: 44px;
+            background-color: var(--primary-black);
+            border: 2px solid var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-gold);
+            font-weight: bold;
+            font-size: 16px;
+            pointer-events: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Labely "PŘED" a "PO" */
+        .img-label {
+            position: absolute;
+            bottom: 20px;
+            background-color: rgba(17, 17, 17, 0.8);
+            color: var(--text-light);
+            padding: 8px 16px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .label-before {
+            left: 20px;
+            border-left: 3px solid #ff4d4d;
+        }
+
+        .label-after {
+            right: 20px;
+            border-right: 3px solid #4dff4d;
+        }
+
+        /* --- REFERENCE --- */
+        .testimonials {
+            background-color: var(--bg-light);
+            padding-top: 50px;
+        }
+
+        .testimonial-box {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--text-light);
+            padding: 60px;
+            border-radius: 8px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.02);
+            text-align: center;
+            border: 1px solid rgba(184, 155, 94, 0.15);
+        }
+
+        .testimonial-text {
+            font-family: var(--font-headings);
+            font-size: 26px;
+            font-style: italic;
+            color: var(--primary-black);
+            line-height: 1.4;
+            margin-bottom: 30px;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: var(--accent-gold);
+        }
+
+        /* --- O NÁS --- */
+        .about-layout {
+            display: grid;
+            grid-template-cols: 1.2fr 0.8fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .about-quote {
+            border-left: 3px solid var(--accent-gold);
+            padding-left: 20px;
+            margin: 25px 0;
+            font-style: italic;
+            font-size: 18px;
+        }
+
+        /* --- KONTAKT A FORMULÁŘ --- */
+        .contact {
+            background-color: var(--secondary-graphite);
+            color: var(--text-light);
+        }
+
+        .contact .section-title {
+            color: var(--text-light);
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-cols: 1fr 1.2fr;
+            gap: 60px;
+        }
+
+        .contact-info h3 {
+            color: var(--text-light);
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .contact-details {
+            margin-top: 40px;
+        }
+
+        .contact-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .contact-detail-item .icon {
+            color: var(--accent-gold);
+            font-size: 24px;
+        }
+
+        .contact-detail-item a {
+            color: var(--text-light);
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .contact-detail-item a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Kontaktní formulář */
+        .contact-form {
+            background-color: rgba(255,255,255,0.02);
+            border: 1px solid rgba(184, 155, 94, 0.2);
+            padding: 40px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-cols: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group-full {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-gold);
+        }
+
+        .form-group input, .form-group textarea {
+            background-color: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 14px;
+            border-radius: 6px;
+            color: var(--text-light);
+            font-family: var(--font-body);
+            transition: var(--transition-smooth);
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            background-color: rgba(255,255,255,0.08);
+        }
+
+        /* Úspěšná hláška odeslání */
+        .form-success-message {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--secondary-graphite);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .form-success-message.show {
+            display: flex;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .success-icon {
+            font-size: 64px;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+        }
+
+        .success-title {
+            font-family: var(--font-headings);
+            font-size: 36px;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        /* --- PATIČKA --- */
+        footer {
+            background-color: var(--primary-black);
+            color: var(--text-muted);
+            padding: 40px 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 14px;
+        }
+
+        .footer-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-family: var(--font-headings);
+            font-size: 20px;
+            color: var(--text-light);
+        }
+
+        .footer-logo span {
+            color: var(--accent-gold);
+        }
+
+        /* --- MOBILNÍ RESPONSIVITA --- */
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-cols: repeat(2, 1fr);
+            }
+            .steps-grid {
+                grid-template-cols: repeat(2, 1fr);
+            }
+            .hero h1 {
+                font-size: 48px;
+            }
+            .comparison-container {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 10px 0;
+            }
+            nav {
+                display: none;
+            }
+            .benefits-grid, .companies-layout, .contact-layout, .about-layout {
+                grid-template-cols: 1fr;
+            }
+            .services-grid, .steps-grid {
+                grid-template-cols: 1fr;
+            }
+            .form-grid {
+                grid-template-cols: 1fr;
+            }
+            .form-group-full {
+                grid-column: span 1;
+            }
+            .hero {
+                padding-top: 140px;
+                padding-bottom: 60px;
+            }
+            .hero h1 {
+                font-size: 36px;
+            }
+            .section-title {
+                font-size: 32px;
+            }
+            .hero-actions {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .footer-wrapper {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            .comparison-container {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HLAVIČKA S OKAMŽITÝM TELEFONEM -->
+    <header id="main-header">
+        <div class="container nav-wrapper">
+            <div class="logo-placeholder">
+                <div class="logo-id">i<span>D</span></div>
+                <div class="logo-text">IN-DETAIL<br><span style="font-size: 8px; color: var(--accent-gold);">mobilní detailing</span></div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#domu" class="nav-link active">Domů</a></li>
+                    <li><a href="#pro-firmy" class="nav-link">Pro firmy</a></li>
+                    <li><a href="#sluzby" class="nav-link">Služby</a></li>
+                    <li><a href="#jak-to-funguje" class="nav-link">Jak to funguje</a></li>
+                    <li><a href="#galerie" class="nav-link">Galerie</a></li>
+                    <li><a href="#kontakt" class="nav-link">Kontakt</a></li>
+                </ul>
+            </nav>
+            <div class="nav-contact">
+                <span class="phone-label">Zavolejte nám</span>
+                <a href="tel:+420123456789" class="phone-number">+420 123 456 789</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SEKCE -->
+    <section id="domu" class="hero">
+        <div class="container">
+            <p class="subtitle">Prémiová mobilní péče</p>
+            <h1>Mobilní čištění interiérů firemních vozidel</h1>
+            <p class="description">Přijedeme přímo k vám a postaráme se o čistotu vašich vozů bez zbytečných odstávek a složité logistiky.</p>
+            
+            <div class="hero-actions">
+                <a href="#kontakt" class="btn btn-primary">Nezávazná poptávka</a>
+                <a href="#jak-to-funguje" class="btn btn-secondary">Jak služba funguje</a>
+            </div>
+
+            <div class="hero-phone-alert">
+                <span>Potřebujete okamžité řešení? Volejte:</span>
+                <strong><a href="tel:+420123456789">+420 123 456 789</a></strong>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENEFITY -->
+    <section class="benefits">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Proč si vybrat nás</span>
+                <h2 class="section-title">Vaše vozidla. Náš standard péče.</h2>
+                <p>Udržujeme vaše interiéry čisté, reprezentativní a připravené pro zaměstnance i vaše klienty přímo ve vaší firmě.</p>
+            </div>
+            
+            <div class="benefits-grid">
+                <!-- Benefit 1 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon">📍</div>
+                    <h3>Čištění přímo u vás</h3>
+                    <p>Nemusíte řešit složitý převoz vozidel ani logistiku. Přijedeme přímo do vašeho firemního areálu.</p>
+                </div>
+                <!-- Benefit 2 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon">⏱</div>
+                    <h3>Minimální omezení provozu</h3>
+                    <p>Vaši zaměstnanci mohou v klidu pracovat. My se postaráme o vozy bez zbytečného zdržování vaší flotily.</p>
+                </div>
+                <!-- Benefit 3 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon">🚗</div>
+                    <h3>Jednotný vzhled flotily</h3>
+                    <p>Nastavíme pravidelný cyklus péče na míru, aby celá vaše firemní flotila bezvýhradně reprezentovala.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRO FIRMY -->
+    <section id="pro-firmy" class="companies">
+        <div class="container companies-layout">
+            <div class="companies-content">
+                <span class="section-tag">Naše zaměření</span>
+                <h2 class="section-title">Partner pro firmy s vozovým parkem</h2>
+                <p>Ať už disponujete několika manažerskými sedany nebo rozsáhlou flotilou užitkových vozidel, dokážeme připravit balíček služeb, který přesně koresponduje s potřebami vaší společnosti.</p>
+                
+                <div class="companies-list">
+                    <div class="company-item">
+                        <h4>Osobní vozy</h4>
+                        <p>Dokonalá reprezentace na obchodních cestách.</p>
+                    </div>
+                    <div class="company-item">
+                        <h4>Servisní společnosti</h4>
+                        <p>Čistota i v těžce namáhaných vozidlech.</p>
+                    </div>
+                    <div class="company-item">
+                        <h4>Fleet manažeři</h4>
+                        <p>Kompletní dohled nad čistotou flotily pod jednou fakturou.</p>
+                    </div>
+                    <div class="company-item">
+                        <h4>Autosalony & Leasing</h4>
+                        <p>Příprava vozidel před prodejem či vrácením.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="companies-image">
+                <img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=800&auto=format&fit=crop" alt="Luxusní firemní auto">
+            </div>
+        </div>
+    </section>
+
+    <!-- SLUŽBY -->
+    <section id="sluzby" class="services">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Co nabízíme</span>
+                <h2 class="section-title">Profesionální detailingové služby</h2>
+                <p>Vyberte si úroveň péče, která nejlépe odpovídá opotřebení a vytíženosti vašich vozidel.</p>
+            </div>
+
+            <div class="services-grid">
+                <!-- Služba 1 -->
+                <div class="service-card">
+                    <div class="service-body">
+                        <h3>Kompletní údržba</h3>
+                        <p>Ideální pro pravidelné udržování čistoty reprezentativních vozidel.</p>
+                        <ul class="service-features">
+                            <li>Důkladné luxování</li>
+                            <li>Čištění běžných nečistot</li>
+                            <li>Čištění oken a detailů</li>
+                            <li>Ošetření plastů</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Služba 2 -->
+                <div class="service-card">
+                    <div class="service-body">
+                        <h3>Péče o kůži</h3>
+                        <p>Speciální ošetření pro manažerské a luxusní vozy s koženým interiérem.</p>
+                        <ul class="service-features">
+                            <li>Šetrné hloubkové čištění</li>
+                            <li>Impregnace kůže proti popraskání</li>
+                            <li>Obnova matného vzhledu</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Služba 3 -->
+                <div class="service-card">
+                    <div class="service-body">
+                        <h3>Hloubkové čištění</h3>
+                        <p>Pro vozidla vyžadující intenzivní restart po dlouhém provozu.</p>
+                        <ul class="service-features">
+                            <li>Tepování textilních částí</li>
+                            <li>Odstranění odolných skvrn</li>
+                            <li>Hloubková dezinfekce</li>
+                            <li>Příprava na prodej</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Služba 4 -->
+                <div class="service-card" style="border: 1px solid var(--accent-gold);">
+                    <div class="service-body">
+                        <h3 style="color: var(--accent-gold);">Pravidelný program</h3>
+                        <p>Dlouhodobá úspora a bezstarostnost díky nastavenému cyklu.</p>
+                        <ul class="service-features">
+                            <li>Fixní měsíční interval</li>
+                            <li>Prioritní termíny rezervace</li>
+                            <li>Nejvýhodnější ceny</li>
+                            <li>Garance stálého stavu</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JAK TO FUNGUJE -->
+    <section id="jak-to-funguje" class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Proces spolupráce</span>
+                <h2 class="section-title">Jednoduchá péče bez komplikací</h2>
+                <p>Nezatěžujeme vás složitou byrokracií. Celý proces je navržen pro maximální efektivitu.</p>
+            </div>
+
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <h3>Poptávka</h3>
+                    <p>Zavoláte nám nebo vyplníte krátký formulář s počtem vozidel.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <h3>Nabídka</h3>
+                    <p>Bleskově pro vás sestavíme rozsah služeb i s naceněním.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <h3>Realizace</h3>
+                    <p>Přijedeme s vlastním vybavením přímo k vám a vozidla vyčistíme.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">04</div>
+                    <h3>Hotovo</h3>
+                    <p>Předáme vám čisté vozy. Můžete okamžitě vyrazit na cestu.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERAKTIVNÍ SROVNÁNÍ PŘED / PO -->
+    <section id="galerie" class="gallery-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Skutečné výsledky</span>
+                <h2 class="section-title">Rozdíl, který uvidíte okamžitě</h2>
+                <p>Chytni posuvník uprostřed obrázku a táhni do stran, abys viděl rozdíl před a po našem zásahu.</p>
+            </div>
+
+            <!-- Porovnávací komponenta -->
+            <div class="comparison-container" id="comparison-slider">
+                <div class="comparison-img img-after"></div>
+                <div class="comparison-img img-before" id="before-image"></div>
+                <div class="img-label label-before">Před</div>
+                <div class="img-label label-after">Po</div>
+                <div class="slider-handle" id="slider-handle">
+                    <div class="slider-button">↔</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REFERENCE -->
+    <section id="reference" class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Co říkají klienti</span>
+                <h2 class="section-title">Důvěra v každém detailu</h2>
+            </div>
+            
+            <div class="testimonial-box">
+                <p class="testimonial-text">„Díky pravidelnému mobilnímu čištění od IN-DETAIL nemusíme řešit žádné logistické přejezdy aut ani ztrátu času zaměstnanců. Jednoduše zaparkujeme v areálu a auta dostáváme zpět v perfektním stavu.“</p>
+                <p class="testimonial-author">Fleet manager, Logistická společnost s.r.o.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- O NÁS -->
+    <section class="about">
+        <div class="container about-layout">
+            <div class="about-text">
+                <span class="section-tag">O naší firmě</span>
+                <h2 class="section-title">Nejsme jen čističi vozidel. Jsme váš B2B partner.</h2>
+                <p>Značka IN-DETAIL vznikla s jasnou myšlenkou – uvolnit firmám a fleet manažerům ruce. Víme, jak náročné je starat se o běžný provoz byznysu. Stav interiéru firemních vozidel by pro vás neměl být další starostí na seznamu.</p>
+                <div class="about-quote">
+                    „Přinášíme do vašeho areálu pořádek, prémiovou spolehlivost a čistotu, která podpoří hodnotu vaší značky.“
+                </div>
+                <p>Naším hlavním cílem není jen jednorázový mycí proces, ale dlouhodobé udržování estetické a finanční hodnoty vašeho vozového parku.</p>
+            </div>
+            <div>
+                <img src="https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=600&auto=format&fit=crop" alt="Práce na detailu">
+            </div>
+        </div>
+    </section>
+
+    <!-- KONTAKTNÍ FORMULÁŘ A KONTAKTY -->
+    <section id="kontakt" class="contact">
+        <div class="container contact-layout">
+            <div class="contact-info">
+                <span class="section-tag">Pojďme to probrat</span>
+                <h2 class="section-title">Získejte nezávaznou nabídku</h2>
+                <p>Máte zájem o pravidelnou péči nebo jednorázové vyčištění flotily? Napište nám základní parametry a obratem se vám ozveme s návrhem řešení.</p>
+                
+                <div class="contact-details">
+                    <div class="contact-detail-item">
+                        <span class="icon">📞</span>
+                        <div>
+                            <p style="font-size: 13px; color: var(--text-muted);">Telefonní kontakt</p>
+                            <a href="tel:+420123456789">+420 123 456 789</a>
+                        </div>
+                    </div>
+                    <div class="contact-detail-item">
+                        <span class="icon">✉</span>
+                        <div>
+                            <p style="font-size: 13px; color: var(--text-muted);">E-mailová adresa</p>
+                            <a href="mailto:info@in-detail.cz">info@in-detail.cz</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <form id="poptavka-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="firma">Název firmy</label>
+                            <input type="text" id="firma" name="firma" placeholder="Např. Auto s.r.o." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lokalita">Město / Lokalita</label>
+                            <input type="text" id="lokalita" name="lokalita" placeholder="Např. Praha, Pardubice" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pocet">Počet vozidel</label>
+                            <input type="number" id="pocet" name="pocet" placeholder="Např. 5" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tel">Telefon</label>
+                            <input type="tel" id="tel" name="tel" placeholder="+420 123 456 789" required>
+                        </div>
+                        <div class="form-group form-group-full">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" placeholder="jmeno@firma.cz" required>
+                        </div>
+                        <div class="form-group form-group-full">
+                            <label for="zprava">Vaše zpráva</label>
+                            <textarea id="zprava" name="zprava" rows="4" placeholder="Upřesněte vaše požadavky nebo typ vozidel..."></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Odeslat nezávaznou poptávku</button>
+                </form>
+
+                <!-- Úspěšná zpráva po odeslání (JS) -->
+                <div class="form-success-message" id="success-message">
+                    <div class="success-icon">✓</div>
+                    <h3 class="success-title">Děkujeme za poptávku!</h3>
+                    <p style="color: var(--text-muted); max-width: 300px; margin: 0 auto;">Váš požadavek jsme úspěšně přijali. Ozveme se vám s nabídkou do 24 hodin.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PATIČKA -->
+    <footer>
+        <div class="container footer-wrapper">
+            <div class="footer-logo">
+                i<span>D</span> IN-DETAIL
+            </div>
+            <div>
+                © 2026 IN-DETAIL.cz. Všechna práva vyhrazena.
+            </div>
+        </div>
+    </footer>
+
+    <!-- --- JAVASCRIPT --- -->
+    <script>
+        // 1. STICKY HLAVIČKA
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // 2. AKTIVNÍ SEKCIONÁLNÍ LINKY V MENU PŘI SCROLLOVÁNÍ
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let currentSectionId = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120; // offset pro sticky header
+                if (window.scrollY >= sectionTop) {
+                    currentSectionId = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSectionId}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // 3. INTERAKTIVNÍ SLIDER PŘED / PO (Srovnávací galerie)
+        const container = document.getElementById('comparison-slider');
+        const beforeImage = document.getElementById('before-image');
+        const handle = document.getElementById('slider-handle');
+
+        function moveSlider(x) {
+            const rect = container.getBoundingClientRect();
+            let position = ((x - rect.left) / rect.width) * 100;
+            
+            // Omezení posuvu v rozsahu 0% až 100%
+            if (position < 0) position = 0;
+            if (position > 100) position = 100;
+            
+            beforeImage.style.width = `${position}%`;
+            handle.style.left = `${position}%`;
+        }
+
+        // Ovládání myší
+        let isDragging = false;
+        container.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            moveSlider(e.clientX);
+        });
+        window.addEventListener('mouseup', () => { isDragging = false; });
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            moveSlider(e.clientX);
+        });
+
+        // Ovládání na mobilech (Dotyky)
+        container.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            moveSlider(e.touches[0].clientX);
+        });
+        window.addEventListener('touchend', () => { isDragging = false; });
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            moveSlider(e.touches[0].clientX);
+        });
+
+        // 4. ELEGANTNÍ ODESLÁNÍ FORMULÁŘE (Mockování bez reloadu stránky)
+        const form = document.getElementById('poptavka-form');
+        const successMsg = document.getElementById('success-message');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); // Zabrání reloadu stránky
+
+            // Zde by v reálu probíhalo odeslání dat přes AJAX/Fetch na server
+            // My nasimulujeme úspěšný stav:
+            successMsg.classList.add('show');
+            form.reset(); // Vyčistí políčka
+        });
+    </script>
+
+</body>
+</html>
