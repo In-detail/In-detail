@@ -350,7 +350,7 @@
             letter-spacing: 0.5px;
         }
 
-        /* --- SEKCE PRO FIRMY (NAVÝŠENÝ KONTRAST) --- */
+        /* --- SEKCE PRO FIRMY (NAVÝŠENÝ KONTRAST - NOVÉ ROZLOŽENÍ NA ŠÍŘKU) --- */
         .companies {
             background-color: var(--primary-dark);
             color: var(--text-light);
@@ -358,27 +358,49 @@
 
         .companies .section-title {
             color: var(--text-light);
+            margin-bottom: 25px;
         }
 
         .companies-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
         }
 
-        .companies-content h3 {
-            color: var(--text-light);
-            font-size: 28px;
-            margin-bottom: 20px;
-            text-transform: uppercase;
+        .companies-image {
+            width: 100%;
+            height: 400px; /* Výška fotky na šířku */
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1.5px solid rgba(52, 152, 219, 0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .companies-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Zajistí, že se fotka krásně přizpůsobí bez deformace */
+            object-position: center;
+        }
+
+        .companies-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .companies-content p.intro-text {
+            font-size: 18px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 40px;
         }
 
         .companies-list {
             display: grid;
-            grid-template-cols: 1fr 1fr;
+            grid-template-columns: repeat(4, 1fr); /* 4 sloupce vedle sebe na desktopu */
             gap: 20px;
-            margin-top: 30px;
+            text-align: left;
         }
 
         .company-item {
@@ -386,29 +408,47 @@
             padding: 24px;
             border-radius: 4px;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-left: 3px solid var(--accent-blue);
+            border-top: 3px solid var(--accent-blue); /* Modrý akcent nahoře */
+            transition: var(--transition-smooth);
+        }
+
+        .company-item:hover {
+            transform: translateY(-3px);
+            border-top-color: var(--text-light);
         }
 
         .company-item h4 {
             color: var(--text-light);
-            font-size: 17px;
+            font-size: 16px;
             margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         .company-item p {
-            font-size: 13px;
+            font-size: 12.5px;
             color: var(--text-muted);
+            line-height: 1.5;
         }
 
-        .companies-image {
-            border-radius: 4px;
-            overflow: hidden;
-            border: 1.5px solid rgba(52, 152, 219, 0.2);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        /* Responsivita pro nové rozložení */
+        @media (max-width: 1024px) {
+            .companies-list {
+                grid-template-columns: repeat(2, 1fr); /* Na tabletech 2x2 */
+            }
+            .companies-image {
+                height: 300px;
+            }
         }
 
+        @media (max-width: 768px) {
+            .companies-list {
+                grid-template-columns: 1fr; /* Na mobilu pod sebou */
+            }
+            .companies-image {
+                height: 200px;
+            }
+        }
         /* --- SEKCE SLUŽBY --- */
         .services-grid {
             display: grid;
@@ -1175,36 +1215,41 @@
 
     <section id="pro-firmy" class="companies">
         <div class="container companies-layout">
+            
+            <!-- Širokoúhlá fotka flotily nahoře -->
+            <div class="companies-image">
+                <img src="https://images.unsplash.com/photo-1520050206274-a1ae446cb3cc?q=80&w=1600&auto=format&fit=crop" alt="Firemní flotila vozidel IN-DETAIL">
+            </div>
+
+            <!-- Obsah pod fotkou -->
             <div class="companies-content">
                 <span class="section-tag">Naše zaměření</span>
                 <h2 class="section-title">Partner pro firmy s vozovým parkem</h2>
-                <p>Ať už disponujete několika manažerskými sedany nebo rozsáhlou flotilou užitkových vozidel, dokážeme připravit balíček služeb, který přesně koresponduje s potřebami vaší společnosti.</p>
+                <p class="intro-text">Ať už disponujete několika manažerskými sedany nebo rozsáhlou flotilou užitkových vozidel, dokážeme připravit balíček služeb, který přesně koresponduje s potřebami vaší společnosti.</p>
                 
+                <!-- Karty zarovnané vedle sebe -->
                 <div class="companies-list">
                     <div class="company-item">
                         <h4>Osobní vozy</h4>
-                        <p>Dokonalá reprezentace na obchodních cestách.</p>
+                        <p>Dokonalá reprezentace na obchodních cestách pro management a obchodní zástupce.</p>
                     </div>
                     <div class="company-item">
-                        <h4>Servisní společnosti</h4>
-                        <p>Čistota i v těžce namáhaných vozidlech.</p>
+                        <h4>Servisní vozy</h4>
+                        <p>Udržíme čistotu, pořádek a hygienický standard i v těžce namáhaných pracovních autech.</p>
                     </div>
                     <div class="company-item">
                         <h4>Fleet manažeři</h4>
-                        <p>Kompletní dohled nad čistotou flotily pod jednou fakturou.</p>
+                        <p>Kompletní dohled nad čistotou celé flotily pod jednou měsíční souhrnnou fakturou.</p>
                     </div>
                     <div class="company-item">
-                        <h4>Autosalony & Leasing</h4>
-                        <p>Příprava vozidel před prodejem či vrácením.</p>
+                        <h4>Autosalony</h4>
+                        <p>Precizní detailingová příprava vozidel před prodejem, předáním nebo vrácením z leasingu.</p>
                     </div>
                 </div>
             </div>
-            <div class="companies-image">
-                <img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=800&auto=format&fit=crop" alt="Luxusní firemní auto">
-            </div>
+
         </div>
     </section>
-
     <section id="sluzby" class="services">
         <div class="container">
             <div class="section-header">
