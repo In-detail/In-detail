@@ -216,73 +216,49 @@
             color: var(--accent-blue);
         }
 
-        /* --- HERO SEKCE --- */
+        /* --- HERO SEKCE S VIDEEM --- */
         .hero {
             padding: 120px 0;
             background-color: var(--secondary-dark);
             color: var(--text-light);
             text-align: center;
             position: relative;
-            background-image: linear-gradient(rgba(17, 26, 34, 0.85), rgba(17, 26, 34, 0.98)), url('https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=1920&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
             display: flex;
             align-items: center;
             min-height: calc(100vh - 90px);
+            overflow: hidden; /* Ořízne přetékající video */
         }
 
-        .hero h1 {
-            color: var(--text-light);
-            font-size: 56px;
-            line-height: 1.15;
-            margin-bottom: 24px;
-            max-width: 950px;
-            margin-left: auto;
-            margin-right: auto;
-            text-transform: uppercase;
-            letter-spacing: -1px;
+        /* Samotné video přes celé pozadí */
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+            object-fit: cover; /* Chová se jako 'background-size: cover' */
         }
 
-        .hero p.subtitle {
-            font-size: 14px;
-            color: var(--accent-blue);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 15px;
-            font-weight: 800;
+        /* Elegantní tmavý přechod přes video */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(17, 26, 34, 0.70), rgba(17, 26, 34, 0.90));
+            z-index: 2;
         }
 
-        .hero p.description {
-            font-size: 18px;
-            color: var(--text-muted);
-            max-width: 700px;
-            margin: 0 auto 45px auto;
-            font-weight: 400;
+        /* Obsah (text a tlačítka) musí být vrstven nad videem */
+        .hero .container {
+            position: relative;
+            z-index: 3;
         }
-
-        .hero-actions {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-bottom: 45px;
-        }
-
-        .hero-phone-alert {
-            background-color: rgba(52, 152, 219, 0.1);
-            border: 1.5px solid var(--accent-blue);
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 28px;
-            border-radius: 4px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .hero-phone-alert strong a {
-            color: var(--accent-blue);
-        }
-
         /* --- OBECNÉ SEKCE --- */
         section {
             padding: 100px 0;
@@ -1168,6 +1144,13 @@
     </header>
 
     <section id="domu" class="hero">
+        <!-- Video na pozadí: Detailní čištění volantu štětečkem -->
+        <video autoplay loop muted playsinline class="hero-video">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-detailing-a-car-steering-wheel-with-a-brush-47963-large.mp4" type="video/mp4">
+        </video>
+        <!-- Tmavý filtr pro perfektní kontrast a čitelnost bílého textu -->
+        <div class="hero-overlay"></div>
+
         <div class="container">
             <p class="subtitle">Prémiová mobilní péče</p>
             <h1>Mobilní čištění interiérů firemních vozidel</h1>
