@@ -343,14 +343,21 @@
             letter-spacing: 0.5px;
         }
 
-        /* --- SEKCE PRO FIRMY (NAVÝŠENÝ KONTRAST - NOVÉ ROZLOŽENÍ NA ŠÍŘKU) --- */
+        /* --- SEKCE PRO FIRMY (OPRAVENÝ A VYČIŠTĚNÝ DESIGN) --- */
         .companies {
             background-color: var(--primary-dark);
             color: var(--text-light);
+            /* Fotka flotily na pozadí s tmavým překrytím pro skvělou čitelnost textu */
+            background-image: linear-gradient(rgba(17, 26, 34, 0.85), rgba(17, 26, 34, 0.85)), url('flotila.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Parallax efekt - pozadí se při skrolování jemně hýbe */
+            padding: 120px 0;
+            position: relative;
         }
 
         .companies .section-title {
-            color: var(--text-light);
+            color: var(--text-light) !important;
             margin-bottom: 25px;
         }
 
@@ -358,22 +365,6 @@
             display: flex;
             flex-direction: column;
             gap: 40px;
-        }
-
-        .companies-image {
-            width: 100%;
-            height: 400px; /* Výška fotky na šířku */
-            border-radius: 4px;
-            overflow: hidden;
-            border: 1.5px solid rgba(52, 152, 219, 0.2);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        .companies-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Zajistí, že se fotka krásně přizpůsobí bez deformace */
-            object-position: center;
         }
 
         .companies-content {
@@ -384,7 +375,8 @@
 
         .companies-content p.intro-text {
             font-size: 18px;
-            color: var(--text-muted);
+            color: var(--text-light) !important; /* Změna na bílou, aby text na tmavé fotce zářil */
+            opacity: 0.9;
             line-height: 1.7;
             margin-bottom: 40px;
         }
@@ -397,17 +389,19 @@
         }
 
         .company-item {
-            background-color: var(--secondary-dark);
+            background-color: rgba(17, 26, 34, 0.85); /* Mírně průhledné tmavé boxíky, aby ladily s pozadím */
             padding: 24px;
             border-radius: 4px;
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-top: 3px solid var(--accent-blue); /* Modrý akcent nahoře */
             transition: var(--transition-smooth);
+            backdrop-filter: blur(5px); /* Moderní efekt jemného rozostření pod boxíky */
         }
 
         .company-item:hover {
             transform: translateY(-3px);
             border-top-color: var(--text-light);
+            background-color: rgba(17, 26, 34, 0.95);
         }
 
         .company-item h4 {
@@ -423,7 +417,6 @@
             color: var(--text-muted);
             line-height: 1.5;
         }
-
         /* Responsivita pro nové rozložení */
         @media (max-width: 1024px) {
             .companies-list {
@@ -1215,12 +1208,7 @@
 
     <section id="pro-firmy" class="companies">
         <div class="container companies-layout">
-            
-            <!-- Lokální širokoúhlá fotka flotily -->
-            <div class="companies-image">
-                <img src="flotila.jpg" alt="Ucelená firemní flotila vozidel IN-DETAIL">
-            </div>
-
+        
             <!-- Obsah pod fotkou -->
             <div class="companies-content">
                 <span class="section-tag">Naše zaměření</span>
