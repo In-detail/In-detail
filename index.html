@@ -750,20 +750,26 @@
             background-position: center;
         }
 
-        .img-after {
-            background-image: url('https://images.unsplash.com/photo-1486006920555-c77dce18193b?q=80&w=1200&auto=format&fit=crop');
-        }
-
+        /* Fotka "Před" bude přes celý kontejner při načtení */
         .img-before {
-            background-image: url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=1200&auto=format&fit=crop');
-            width: 50%;
+            background-image: url('pred.jpg');
+            width: 100%; 
+            z-index: 2; /* Musí být nad fotkou "Po" */
         }
 
+        /* Fotka "Po" bude vespod */
+        .img-after {
+            background-image: url('po.jpg');
+            width: 100%;
+            z-index: 1;
+        }
+
+        /* Táhlo začíná vlevo na 100 % (protože zakrývá "Před") */
         .slider-handle {
             position: absolute;
             top: 0;
             bottom: 0;
-            left: 50%;
+            left: 100%; /* Táhlo je na konci, protože před ním je 100 % fotky "Před" */
             width: 4px;
             background-color: var(--accent-blue);
             cursor: ew-resize;
@@ -1426,16 +1432,15 @@
                 </div>
 
             <div class="comparison-container" id="comparison-slider">
-                <!-- Tady jsou vložené cesty k tvým obrázkům -->
-                <div class="comparison-img img-after" style="background-image: url('po.jpg');"></div>
-                <div class="comparison-img img-before" id="before-image" style="background-image: url('pred.jpg');"></div>
-                
-                <div class="img-label label-before">Před</div>
-                <div class="img-label label-after">Po</div>
-                <div class="slider-handle" id="slider-handle">
-                    <div class="slider-button">↔</div>
-                </div>
-            </div>
+    <div class="comparison-img img-after" style="background-image: url('po.jpg');"></div>
+    <div class="comparison-img img-before" id="before-image"></div>
+    
+    <div class="img-label label-before">Před</div>
+    <div class="img-label label-after">Po</div>
+    <div class="slider-handle" id="slider-handle">
+        <div class="slider-button">↔</div>
+    </div>
+</div>
         </div>
     </section>
 
