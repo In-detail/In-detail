@@ -8,1147 +8,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <style>
-        /* --- DESIGN SYSTEM - IN-DETAIL BRANDING (PODLE NÁVRHU INSTAGRAMU) --- */
-        :root {
-            --primary-dark: #1a252f;      /* Temně antracitová (hlavní pozadí sekcí) */
-            --secondary-dark: #111a22;    /* Ještě tmavší šedá pro menu a karty */
-            --accent-blue: #3498db;       /* Safírově modrá pro akcenty a důležitá tlačítka */
-            --accent-blue-hover: #2980b9; /* Tmavší modrá při najetí myší */
-            --bg-light: #f5f8fa;          /* Světlé čisté pozadí pro střídání sekcí */
-            --text-dark: #2c3e50;         /* Tmavé písmo pro čitelnost na světlém */
-            --text-light: #ffffff;        /* Čistě bílá pro tmavé sekce */
-            --text-muted: #95a5a6;        /* Tlumená šedá pro vedlejší texty */
-            --font-body: 'Manrope', sans-serif;
-            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-
-        /* --- ZÁKLADNÍ RESET --- */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-body);
-            color: var(--text-dark);
-            background-color: var(--bg-light);
-            line-height: 1.6;
-            overflow-x: hidden;
-            padding-top: 90px; /* Kompenzace pro fixní menu */
-        }
-
-        h1, h2, h3, h4 {
-            font-family: var(--font-body);
-            font-weight: 700;
-            color: var(--primary-dark);
-            letter-spacing: -0.5px;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-            transition: var(--transition-smooth);
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* --- TLAČÍTKA (PRÉMIOVÝ DESIGN) --- */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 14px 32px;
-            font-weight: 700;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            border-radius: 4px; /* Ostré/minimalistické rohy z návrhu */
-            transition: var(--transition-smooth);
-            cursor: pointer;
-            border: none;
-        }
-
-        .btn-primary {
-            background-color: var(--accent-blue);
-            color: var(--text-light);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--accent-blue-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--text-light);
-            border: 1.5px solid var(--text-light);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--text-light);
-            color: var(--secondary-dark);
-            transform: translateY(-2px);
-        }
-
-        /* --- HLAVIČKA (STICKY HEADER & NAV) --- */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: rgba(17, 26, 34, 0.96); /* Tmavě modrošedá z grafiky */
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 2px solid var(--accent-blue); /* Modrá linka z návrhu */
-            padding: 20px 0;
-            transition: var(--transition-smooth);
-        }
-
-        header.scrolled {
-            padding: 14px 0;
-            background-color: rgba(11, 17, 22, 0.98);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .nav-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        /* LOGO PODLE GRAFICKÉHO NÁVRHU */
-        .logo-placeholder {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo-placeholder .logo-id {
-            font-family: var(--font-body);
-            font-size: 26px;
-            font-weight: 800;
-            color: var(--text-light);
-            border: 2px solid var(--text-light);
-            padding: 2px 8px;
-            letter-spacing: 1px;
-            position: relative;
-        }
-
-        /* Dekorační hvězdička (detail čistoty) nad logem */
-        .logo-placeholder .logo-id::after {
-            content: '✨';
-            font-size: 10px;
-            position: absolute;
-            top: -8px;
-            right: -8px;
-        }
-
-        .logo-placeholder .logo-text {
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--text-light);
-            line-height: 1.1;
-        }
-
-        .logo-placeholder .logo-text span {
-            color: var(--accent-blue);
-        }
-
-        nav ul {
-            display: flex;
-            gap: 25px;
-        }
-
-        nav ul a {
-            color: var(--text-light);
-            font-size: 13px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        nav ul a:hover, nav ul a.active {
-            color: var(--accent-blue);
-        }
-
-        .nav-contact {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
-
-        .nav-contact .phone-label {
-            font-size: 10px;
-            text-transform: uppercase;
-            color: var(--accent-blue);
-            letter-spacing: 1.5px;
-            font-weight: 700;
-        }
-
-        .nav-contact .phone-number {
-            font-weight: 800;
-            font-size: 17px;
-            color: var(--text-light);
-        }
-
-        .nav-contact .phone-number:hover {
-            color: var(--accent-blue);
-        }
-
-        /* --- HERO SEKCE S VIDEEM (OPRAVENÁ) --- */
-        .hero {
-            padding: 120px 0;
-            background-color: var(--secondary-dark);
-            color: var(--text-light);
-            text-align: center;
-            position: relative;
-            display: flex;
-            align-items: center;
-            min-height: calc(100vh - 90px);
-            overflow: hidden;
-            /* Záložní obrázek (přesně ten tvůj se štětečkem), pokud se video ještě načítá */
-            background-image: linear-gradient(rgba(17, 26, 34, 0.75), rgba(17, 26, 34, 0.90)), url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=1920&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-        }
-
-        /* Samotné video přes celé pozadí */
-        .hero-video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: 1;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-        }
-
-        /* Tmavá vrstva pro maximální čitelnost */
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(17, 26, 34, 0.75), rgba(17, 26, 34, 0.90));
-            z-index: 2;
-        }
-
-        /* Obsah nad vším ostatním */
-        .hero .container {
-            position: relative;
-            z-index: 3;
-        }
-
-        /* OPRAVA: Vynucení bílé barvy pro hlavní nadpis v hero sekci */
-        .hero h1 {
-            color: var(--text-light) !important;
-            font-size: 56px;
-            line-height: 1.15;
-            margin-bottom: 24px;
-            max-width: 950px;
-            margin-left: auto;
-            margin-right: auto;
-            text-transform: uppercase;
-            letter-spacing: -1px;
-        }
-        /* --- OBECNÉ SEKCE --- */
-        section {
-            padding: 100px 0;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .section-tag {
-            color: var(--accent-blue);
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 800;
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .section-title {
-            font-size: 40px;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            color: var(--primary-dark);
-        }
-
-        /* --- BENEFITY --- */
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .benefit-card {
-            background-color: var(--text-light);
-            padding: 45px 35px;
-            border-radius: 4px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            border-top: 3px solid transparent;
-            transition: var(--transition-smooth);
-        }
-
-        .benefit-card:hover {
-            border-top: 3px solid var(--accent-blue);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
-        }
-
-        .benefit-icon {
-            font-size: 40px;
-            color: var(--accent-blue);
-            margin-bottom: 25px;
-        }
-
-        .benefit-card h3 {
-            font-size: 20px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* --- SEKCE PRO FIRMY (OPRAVENÝ A VYČIŠTĚNÝ DESIGN) --- */
-        .companies {
-            background-color: var(--primary-dark);
-            color: var(--text-light);
-            /* Fotka flotily na pozadí s tmavým překrytím pro skvělou čitelnost textu */
-            background-image: linear-gradient(rgba(17, 26, 34, 0.85), rgba(17, 26, 34, 0.85)), url('flotila.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed; /* Parallax efekt - pozadí se při skrolování jemně hýbe */
-            padding: 120px 0;
-            position: relative;
-        }
-
-        .companies .section-title {
-            color: var(--text-light) !important;
-            margin-bottom: 25px;
-        }
-
-        .companies-layout {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-        }
-
-        .companies-content {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .companies-content p.intro-text {
-            font-size: 18px;
-            color: var(--text-light) !important; /* Změna na bílou, aby text na tmavé fotce zářil */
-            opacity: 0.9;
-            line-height: 1.7;
-            margin-bottom: 40px;
-        }
-
-        .companies-list {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 4 sloupce vedle sebe na desktopu */
-            gap: 20px;
-            text-align: left;
-        }
-
-        .company-item {
-            background-color: rgba(17, 26, 34, 0.85); /* Mírně průhledné tmavé boxíky, aby ladily s pozadím */
-            padding: 24px;
-            border-radius: 4px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-top: 3px solid var(--accent-blue); /* Modrý akcent nahoře */
-            transition: var(--transition-smooth);
-            backdrop-filter: blur(5px); /* Moderní efekt jemného rozostření pod boxíky */
-        }
-
-        .company-item:hover {
-            transform: translateY(-3px);
-            border-top-color: var(--text-light);
-            background-color: rgba(17, 26, 34, 0.95);
-        }
-
-        .company-item h4 {
-            color: var(--text-light);
-            font-size: 16px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .company-item p {
-            font-size: 12.5px;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-        /* Responsivita pro nové rozložení */
-        @media (max-width: 1024px) {
-            .companies-list {
-                grid-template-columns: repeat(2, 1fr); /* Na tabletech 2x2 */
-            }
-            .companies-image {
-                height: 300px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .companies-list {
-                grid-template-columns: 1fr; /* Na mobilu pod sebou */
-            }
-            .companies-image {
-                height: 200px;
-            }
-        }
-        /* --- SEKCE SLUŽBY --- */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-        }
-
-        .service-card {
-            background: var(--text-light);
-            border-radius: 4px;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            transition: var(--transition-smooth);
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-        }
-
-        .service-body {
-            padding: 35px 25px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .service-body h3 {
-            font-size: 20px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border-bottom: 1.5px solid var(--bg-light);
-            padding-bottom: 15px;
-        }
-
-        .service-features {
-            margin-top: 20px;
-            flex-grow: 1;
-        }
-
-        .service-features li {
-            font-size: 13.5px;
-            margin-bottom: 10px;
-            position: relative;
-            padding-left: 20px;
-            color: var(--text-dark);
-        }
-
-        .service-features li::before {
-            content: '✓';
-            color: var(--accent-blue);
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-        }
-
-        /* --- SEKCE: CENÍK (INSTAGRAM PROFIL CARD STYL) --- */
-        .pricing-section {
-            background-color: var(--secondary-dark);
-            color: var(--text-light);
-            border-top: 2px solid var(--accent-blue);
-        }
-
-        .pricing-section .section-title {
-            color: var(--text-light);
-        }
-
-        .programs-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .program-card-detail {
-            background-color: var(--primary-dark);
-            border-top: 4px solid var(--accent-blue);
-            border-radius: 4px;
-            padding: 40px 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            transition: var(--transition-smooth);
-            border-left: 1px solid rgba(255, 255, 255, 0.05);
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .program-card-detail:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 45px rgba(52, 152, 219, 0.15);
-        }
-
-        /* EXKLUZIVNÍ STRUKTURA PRO ZVÝRAZNĚNOU KARTU ✨ */
-        .program-card-detail.featured {
-            border-top-color: var(--text-light);
-            background-color: rgba(52, 152, 219, 0.08);
-            border-left: 1.5px solid var(--accent-blue);
-            border-right: 1.5px solid var(--accent-blue);
-            border-bottom: 1.5px solid var(--accent-blue);
-            position: relative;
-        }
-
-        .program-card-detail.featured::before {
-            content: 'DOPORUČUJEME ✨';
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--accent-blue);
-            color: var(--text-light);
-            font-size: 10px;
-            font-weight: 800;
-            padding: 4px 12px;
-            border-radius: 20px;
-            letter-spacing: 1.5px;
-        }
-
-        .program-header {
-            margin-bottom: 25px;
-        }
-
-        .program-title {
-            font-size: 22px;
-            color: var(--text-light);
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .program-time {
-            font-size: 11px;
-            color: var(--accent-blue);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-weight: 800;
-        }
-
-        .program-desc {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.7;
-            margin-bottom: 35px;
-            flex-grow: 1;
-        }
-
-        .program-price-box {
-            border-top: 1.5px solid rgba(255, 255, 255, 0.08);
-            padding-top: 25px;
-            text-align: center;
-        }
-
-        .program-price {
-            font-size: 34px;
-            font-weight: 800;
-            color: var(--text-light);
-            line-height: 1;
-        }
-
-        .program-price-vat {
-            font-size: 10px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-top: 6px;
-            font-weight: 700;
-        }
-
-        /* Spodní doplňující info k ceníku */
-        .pricing-meta {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 30px;
-            margin-top: 60px;
-        }
-
-        .pricing-fleet {
-            background-color: var(--primary-dark);
-            border: 1.5px solid rgba(52, 152, 219, 0.2);
-            border-radius: 4px;
-            padding: 40px;
-        }
-
-        .pricing-fleet h3 {
-            font-size: 22px;
-            color: var(--text-light);
-            margin-bottom: 25px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .fleet-items-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .fleet-box-item strong {
-            display: block;
-            font-size: 14px;
-            color: var(--accent-blue);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .fleet-box-item p {
-            font-size: 12.5px;
-            color: var(--text-muted);
-        }
-
-        .pricing-extra-benefits {
-            background-color: rgba(52, 152, 219, 0.03);
-            border: 1.5px solid rgba(52, 152, 219, 0.15);
-            border-radius: 4px;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .extra-benefit-item strong {
-            display: block;
-            font-size: 13.5px;
-            color: var(--text-light);
-            margin-bottom: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .extra-benefit-item p {
-            font-size: 12.5px;
-            color: var(--text-muted);
-        }
-
-        /* --- JAK TO FUNGUJE --- */
-        .how-it-works {
-            background-color: var(--secondary-dark);
-            color: var(--text-light);
-            border-top: 1.5px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .how-it-works .section-title {
-            color: var(--text-light);
-        }
-
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            position: relative;
-        }
-
-        .step-card {
-            position: relative;
-            background-color: var(--primary-dark);
-            padding: 35px 25px;
-            border-radius: 4px;
-            border: 1.5px solid rgba(255, 255, 255, 0.02);
-        }
-
-        .step-number {
-            font-size: 64px;
-            color: rgba(52, 152, 219, 0.12);
-            line-height: 1;
-            margin-bottom: -10px;
-            font-weight: 900;
-        }
-
-        .step-card h3 {
-            color: var(--text-light);
-            font-size: 18px;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .step-card p {
-            color: var(--text-muted);
-            font-size: 13.5px;
-        }
-
-        /* --- INTERAKTIVNÍ SROVNÁVACÍ GALERIE (PŘED / PO) --- */
-        .gallery-section {
-            background-color: var(--bg-light);
-        }
-
-        .comparison-container {
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-            height: 500px;
-            margin: 0 auto;
-            overflow: hidden;
-            border-radius: 4px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-            border: 2px solid var(--accent-blue);
-        }
-
-        .comparison-img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-        }
-
-        /* Fotka "Před" bude přes celý kontejner při načtení */
-        .img-before {
-            background-image: url('pred.jpg');
-            width: 100%; 
-            z-index: 2; /* Musí být nad fotkou "Po" */
-        }
-
-        /* Fotka "Po" bude vespod */
-        .img-after {
-            background-image: url('po.jpg');
-            width: 100%;
-            z-index: 1;
-        }
-
-        /* Táhlo začíná vlevo na 100 % (protože zakrývá "Před") */
-        .slider-handle {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 100%; /* Táhlo je na konci, protože před ním je 100 % fotky "Před" */
-            width: 4px;
-            background-color: var(--accent-blue);
-            cursor: ew-resize;
-            z-index: 10;
-        }
-
-        .slider-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 44px;
-            height: 44px;
-            background-color: var(--secondary-dark);
-            border: 2px solid var(--accent-blue);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent-blue);
-            font-weight: bold;
-            font-size: 16px;
-            pointer-events: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-        }
-
-        .img-label {
-            position: absolute;
-            bottom: 20px;
-            background-color: rgba(17, 26, 34, 0.9);
-            color: var(--text-light);
-            padding: 8px 18px;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            border-radius: 2px;
-            z-index: 5;
-            pointer-events: none;
-            font-weight: 700;
-        }
-
-        .label-before {
-            left: 20px;
-            border-left: 3px solid #e74c3c;
-        }
-
-        .label-after {
-            right: 20px;
-            border-right: 3px solid #2ecc71;
-        }
-
-        /* --- REFERENCE --- */
-        .testimonials {
-            background-color: var(--bg-light);
-            padding-top: 50px;
-        }
-
-        .testimonial-box {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: var(--text-light);
-            padding: 60px 40px;
-            border-radius: 4px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.02);
-            text-align: center;
-            border: 1.5px solid rgba(52, 152, 219, 0.15);
-            position: relative;
-        }
-
-        .testimonial-box::before {
-            content: "“";
-            font-size: 80px;
-            color: rgba(52, 152, 219, 0.15);
-            position: absolute;
-            top: 10px;
-            left: 30px;
-            line-height: 1;
-        }
-
-        .testimonial-text {
-            font-size: 20px;
-            font-style: italic;
-            color: var(--primary-dark);
-            line-height: 1.6;
-            margin-bottom: 30px;
-            font-weight: 500;
-        }
-
-        .testimonial-author {
-            font-weight: 800;
-            text-transform: uppercase;
-            font-size: 12px;
-            letter-spacing: 2px;
-            color: var(--accent-blue);
-        }
-
-        /* --- O NÁS --- */
-        .about-layout {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .about-text h3 {
-            font-size: 28px;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-
-        .about-quote {
-            border-left: 3px solid var(--accent-blue);
-            padding-left: 20px;
-            margin: 25px 0;
-            font-style: italic;
-            font-size: 17px;
-            color: var(--primary-dark);
-            font-weight: 600;
-        }
-
-        /* --- KONTAKT A FORMULÁŘ --- */
-        .contact {
-            background-color: var(--primary-dark);
-            color: var(--text-light);
-        }
-
-        .contact .section-title {
-            color: var(--text-light);
-        }
-
-        .contact-layout {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 60px;
-        }
-
-        .contact-info h3 {
-            color: var(--text-light);
-            font-size: 28px;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-
-        .contact-info p {
-            color: var(--text-muted);
-            margin-bottom: 30px;
-        }
-
-        .contact-details {
-            margin-top: 40px;
-        }
-
-        .contact-detail-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .contact-detail-item .icon {
-            color: var(--accent-blue);
-            font-size: 24px;
-        }
-
-        .contact-detail-item a {
-            color: var(--text-light);
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        .contact-detail-item a:hover {
-            color: var(--accent-blue);
-        }
-
-        /* Kontaktní formulář (Instagramový styl) */
-        .contact-form {
-            background-color: var(--secondary-dark);
-            border: 1.5px solid rgba(52, 152, 219, 0.2);
-            padding: 45px 35px;
-            border-radius: 4px;
-            position: relative;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .form-group-full {
-            grid-column: span 2;
-        }
-
-        .form-group label {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--accent-blue);
-            font-weight: 700;
-        }
-
-        .form-group input, .form-group textarea {
-            background-color: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            padding: 14px;
-            border-radius: 4px;
-            color: var(--text-light);
-            font-family: var(--font-body);
-            font-size: 14px;
-            transition: var(--transition-smooth);
-        }
-
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent-blue);
-            background-color: rgba(255,255,255,0.06);
-        }
-
-        .form-success-message {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--secondary-dark);
-            border-radius: 4px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 40px;
-            z-index: 10;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-        }
-
-        .form-success-message.show {
-            display: flex;
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .success-icon {
-            font-size: 64px;
-            color: var(--accent-blue);
-            margin-bottom: 20px;
-        }
-
-        .success-title {
-            font-size: 32px;
-            color: var(--text-light);
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
-        /* --- PATIČKA --- */
-        footer {
-            background-color: var(--secondary-dark);
-            color: var(--text-muted);
-            padding: 45px 0;
-            border-top: 1.5px solid rgba(255,255,255,0.03);
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        .footer-wrapper {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .footer-logo {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--text-light);
-            letter-spacing: 1px;
-        }
-
-        .footer-logo span {
-            color: var(--accent-blue);
-        }
-
-        /* --- RESPONSIVITA --- */
-        @media (max-width: 1024px) {
-            .services-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .programs-grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-            .pricing-meta {
-                grid-template-columns: 1fr;
-            }
-            .steps-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .hero h1 {
-                font-size: 44px;
-            }
-            .comparison-container {
-                height: 400px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            header {
-                padding: 12px 0;
-            }
-            nav {
-                display: none;
-            }
-            .benefits-grid, .companies-layout, .contact-layout, .about-layout {
-                grid-template-columns: 1fr;
-            }
-            .services-grid, .steps-grid {
-                grid-template-columns: 1fr;
-            }
-            .fleet-items-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            .form-group-full {
-                grid-column: span 1;
-            }
-            .hero {
-                padding-top: 130px;
-                padding-bottom: 60px;
-            }
-            .hero h1 {
-                font-size: 32px;
-            }
-            .section-title {
-                font-size: 28px;
-            }
-            .hero-actions {
-                flex-direction: column;
-                gap: 12px;
-            }
-            .footer-wrapper {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-            }
-            .comparison-container {
-                height: 300px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header id="main-header">
         <div class="container nav-wrapper">
-            <div class="logo-placeholder">
+            <a href="#" class="logo-placeholder" aria-label="IN-DETAIL – zpět na začátek stránky">
                 <div class="logo-id">ID</div>
                 <div class="logo-text">IN-DETAIL<br><span style="font-size: 8.5px; color: var(--accent-blue);">mobilní detailing</span></div>
-            </div>
+            </a>
             <nav>
                 <ul>
                     <li><a href="#domu" class="nav-link active">Domů</a></li>
                     <li><a href="#pro-firmy" class="nav-link">Pro firmy</a></li>
                     <li><a href="#sluzby" class="nav-link">Služby</a></li>
                     <li><a href="#cenik" class="nav-link">Ceník</a></li>
-                    <li><a href="#jak-to-funguje" class="nav-link">Jak to funguje</a></li>
                     <li><a href="#galerie" class="nav-link">Galerie</a></li>
+                    <li><a href="#jak-to-funguje" class="nav-link">Jak to funguje</a></li>
                     <li><a href="#kontakt" class="nav-link">Kontakt</a></li>
                 </ul>
             </nav>
@@ -1194,17 +71,23 @@
             
             <div class="benefits-grid">
                 <div class="benefit-card">
-                    <div class="benefit-icon">📍</div>
+                    <div class="benefit-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
                     <h3>Čištění přímo u vás</h3>
                     <p>Nemusíte řešit složitý převoz vozidel ani logistiku. Přijedeme přímo do vašeho firemního areálu.</p>
                 </div>
                 <div class="benefit-card">
-                    <div class="benefit-icon">⏱</div>
+                    <div class="benefit-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
                     <h3>Minimální omezení provozu</h3>
                     <p>Vaši zaměstnanci mohou v klidu pracovat. My se postaráme o vozy bez zbytečného zdržování vaší flotily.</p>
                 </div>
                 <div class="benefit-card">
-                    <div class="benefit-icon">🚗</div>
+                    <div class="benefit-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+                    </div>
                     <h3>Jednotný vzhled flotily</h3>
                     <p>Nastavíme pravidelný cyklus péče na míru, aby celá vaše firemní flotila bezvýhradně reprezentovala.</p>
                 </div>
@@ -1224,19 +107,39 @@
                 <!-- Karty zarovnané vedle sebe -->
                 <div class="companies-list">
                     <div class="company-item">
-                        <h4>Osobní vozy</h4>
+                        <h4>
+                            <span class="company-icon icon-c-blue" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+                            </span>
+                            Osobní vozy
+                        </h4>
                         <p>Dokonalá reprezentace na obchodních cestách pro management a obchodní zástupce.</p>
                     </div>
                     <div class="company-item">
-                        <h4>Servisní vozy</h4>
+                        <h4>
+                            <span class="company-icon icon-c-orange" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                            </span>
+                            Servisní vozy
+                        </h4>
                         <p>Udržíme čistotu, pořádek a hygienický standard i v těžce namáhaných pracovních autech.</p>
                     </div>
                     <div class="company-item">
-                        <h4>Fleet manažeři</h4>
+                        <h4>
+                            <span class="company-icon icon-c-green" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            </span>
+                            Fleet manažeři
+                        </h4>
                         <p>Kompletní dohled nad čistotou celé flotily pod jednou měsíční souhrnnou fakturou.</p>
                     </div>
                     <div class="company-item">
-                        <h4>Autosalony</h4>
+                        <h4>
+                            <span class="company-icon icon-c-purple" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+                            </span>
+                            Autosalony
+                        </h4>
                         <p>Precizní detailingová příprava vozidel před prodejem, předáním nebo vrácením z leasingu.</p>
                     </div>
                 </div>
@@ -1255,7 +158,12 @@
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-body">
-                        <h3>Kompletní údržba</h3>
+                        <h3>
+                            <span class="service-icon icon-green" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            </span>
+                            Kompletní údržba
+                        </h3>
                         <p>Ideální pro pravidelné udržování čistoty reprezentativních vozidel.</p>
                         <ul class="service-features">
                             <li>Důkladné luxování</li>
@@ -1267,7 +175,12 @@
                 </div>
                 <div class="service-card">
                     <div class="service-body">
-                        <h3>Péče o kůži</h3>
+                        <h3>
+                            <span class="service-icon icon-orange" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.1Q12 4.5 18 3.1A2.7 2.7 0 0 1 18.9 8.3Q13.8 12 18.9 15.7A2.7 2.7 0 0 1 17.5 20.9Q14.8 20.5 13.2 19.7Q12.9 21.7 12 21.7Q11.1 21.7 10.8 19.7Q9.2 20.5 6.5 20.9A2.7 2.7 0 0 1 5.1 15.7Q10.2 12 5.1 8.3A2.7 2.7 0 0 1 6 3.1Z"/></svg>
+                            </span>
+                            Péče o kůži
+                        </h3>
                         <p>Speciální ošetření pro manažerské a luxusní vozy s koženým interiérem.</p>
                         <ul class="service-features">
                             <li>Šetrné hloubkové čištění</li>
@@ -1278,7 +191,12 @@
                 </div>
                 <div class="service-card">
                     <div class="service-body">
-                        <h3>Hloubkové čištění</h3>
+                        <h3>
+                            <span class="service-icon icon-purple" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                            </span>
+                            Hloubkové čištění
+                        </h3>
                         <p>Pro vozidla vyžadující intenzivní restart po dlouhém provozu.</p>
                         <ul class="service-features">
                             <li>Tepování textilních částí</li>
@@ -1290,7 +208,12 @@
                 </div>
                 <div class="service-card" style="border: 2px solid var(--accent-blue);">
                     <div class="service-body">
-                        <h3 style="color: var(--accent-blue);">Pravidelný program ✨</h3>
+                        <h3 style="color: var(--accent-blue);">
+                            <span class="service-icon icon-blue" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+                            </span>
+                            Pravidelný program ✨
+                        </h3>
                         <p>Dlouhodobá úspora a bezstarostnost díky nastavenému cyklu.</p>
                         <ul class="service-features">
                             <li>Fixní měsíční interval</li>
@@ -1316,8 +239,14 @@
                 
                 <div class="program-card-detail">
                     <div class="program-header">
+                        <span class="program-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                        </span>
                         <h3 class="program-title">BUSINESS ESSENTIAL</h3>
-                        <span class="program-time">⏱ cca 1,5–2 hod</span>
+                        <span class="program-time">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            cca 1,5–2 hod
+                        </span>
                     </div>
                     <p class="program-desc">Šetrné ruční vysávání celého interiéru včetně zavazadlového prostoru. Detailní čištění všech vnitřních skel, zrcátek, přístrojové desky a mezidveřních prostor. Decentní provonění interiéru. Ideální pro pravidelnou firemní reprezentaci.</p>
                     <div class="program-price-box">
@@ -1328,20 +257,32 @@
 
                 <div class="program-card-detail featured">
                     <div class="program-header">
-                        <h3 class="program-title" style="color: var(--accent-blue);">EXECUTIVE COMFORT</h3>
-                        <span class="program-time">⏱ cca 3–4 hod</span>
+                        <span class="program-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </span>
+                        <h3 class="program-title">EXECUTIVE COMFORT</h3>
+                        <span class="program-time">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            cca 3–4 hod
+                        </span>
                     </div>
                     <p class="program-desc">Zahrnuje program Business + šetrné hloubkové tepování textilních sedadel nebo kompletní čištění, výživu a ochrannou impregnaci koženého čalounění. Kompletní oživení interiérových plastů s prémiovou UV ochranou proti stárnutí.</p>
                     <div class="program-price-box">
-                        <div class="program-price" style="color: var(--accent-blue);">2 290 Kč</div>
+                        <div class="program-price">2 290 Kč</div>
                         <div class="program-price-vat">bez DPH</div>
                     </div>
                 </div>
 
                 <div class="program-card-detail">
                     <div class="program-header">
+                        <span class="program-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+                        </span>
                         <h3 class="program-title">FIRST CLASS REBORN</h3>
-                        <span class="program-time">⏱ cca 5–6 hod</span>
+                        <span class="program-time">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            cca 5–6 hod
+                        </span>
                     </div>
                     <p class="program-desc">Kompletní omlazení interiéru na úroveň nového vozu. Hloubkové parní čištění a extrakční tepování veškerých textilních povrchů (včetně podlah a stropnice). Regenerace kůže. Dezinfekce vzduchotechniky ozonem (odstranění mikrobů a pachu).</p>
                     <div class="program-price-box">
@@ -1358,15 +299,24 @@
                     <h3>Flotilové programy a partnerství</h3>
                     <div class="fleet-items-grid">
                         <div class="fleet-box-item">
-                            <strong>Sleva 15 %</strong>
+                            <strong>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+                                Sleva 15 %
+                            </strong>
                             <p>Pro firemní flotily od 3 do 5 vozidel realizovaných při jedné návštěvě.</p>
                         </div>
                         <div class="fleet-box-item">
-                            <strong>Sleva 18 %</strong>
+                            <strong>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                                Sleva 18 %
+                            </strong>
                             <p>Pro větší vozové parky (6 a více vozidel) nebo smluvní partnery.</p>
                         </div>
                         <div class="fleet-box-item">
-                            <strong>Pravidelná péče</strong>
+                            <strong>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                Pravidelná péče
+                            </strong>
                             <p>Individuální servisní kalendář sestavený na míru s fixně garantovanými termíny.</p>
                         </div>
                     </div>
@@ -1374,19 +324,112 @@
 
                 <div class="pricing-extra-benefits">
                     <div class="extra-benefit-item">
-                        <strong>Čištění přímo u vás</strong>
-                        <p>Žádné zbytečné přejezdy, logistické ztráty času nebo absence zaměstnanců.</p>
+                        <span class="extra-benefit-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        </span>
+                        <div class="extra-benefit-text">
+                            <strong>Čištění přímo u vás</strong>
+                            <p>Žádné zbytečné přejezdy, logistické ztráty času nebo absence zaměstnanců.</p>
+                        </div>
                     </div>
                     <div class="extra-benefit-item">
-                        <strong>B2B Fakturace</strong>
-                        <p>Jedna přehledná měsíční sběrná faktura pro celou vaši firemní flotilu.</p>
+                        <span class="extra-benefit-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                        </span>
+                        <div class="extra-benefit-text">
+                            <strong>B2B Fakturace</strong>
+                            <p>Jedna přehledná měsíční sběrná faktura pro celou vaši firemní flotilu.</p>
+                        </div>
                     </div>
                     <div class="extra-benefit-item">
-                        <strong>Prémiová kvalita</strong>
-                        <p>Používáme výhradně šetrnou, biologicky odbouratelnou a certifikovanou autokosmetiku.</p>
+                        <span class="extra-benefit-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        </span>
+                        <div class="extra-benefit-text">
+                            <strong>Prémiová kvalita</strong>
+                            <p>Používáme výhradně šetrnou, biologicky odbouratelnou a certifikovanou autokosmetiku.</p>
+                        </div>
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </section>
+
+    <section id="galerie" class="gallery-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Skutečné výsledky</span>
+                <h2 class="section-title">Rozdíl, který uvidíte okamžitě</h2>
+                </div>
+
+            <div class="comparison-container" id="comparison-slider">
+                <img class="comparison-img img-after" src="po.jpg" width="1408" height="768" alt="Interiér vozidla po vyčištění" loading="lazy" draggable="false">
+                <img class="comparison-img img-before" src="pred.jpg" width="1408" height="768" alt="Interiér vozidla před vyčištěním" loading="lazy" draggable="false">
+
+                <div class="img-label label-before">Před</div>
+                <div class="img-label label-after">Po</div>
+                <div class="slider-handle" id="slider-handle" role="slider" tabindex="0"
+                     aria-label="Porovnání před a po čištění" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+                    <div class="slider-button" aria-hidden="true">↔</div>
+                </div>
+            </div>
+
+            <!-- Pruh fotek pod porovnáním (zmenšené kopie ze složky images/web/) -->
+            <div class="photo-strip-wrapper">
+                <button type="button" class="strip-btn strip-prev" aria-label="Předchozí fotky">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.5 5l-7 7 7 7"/></svg>
+                </button>
+                <div class="photo-strip" id="photo-strip" role="region" aria-label="Fotky z naší práce" tabindex="0">
+                    <a href="images/web/large/skoda-promo-po1.jpg" class="strip-item">
+                        <img src="images/web/skoda-promo-po1.jpg" width="750" height="1000" alt="Interiér Škody po vyčištění, volant a palubní deska" loading="lazy" decoding="async">
+                    </a>
+                    <a href="images/web/large/skoda-promo-po2.jpg" class="strip-item">
+                        <img src="images/web/skoda-promo-po2.jpg" width="750" height="1000" alt="Interiér Škody po vyčištění, přední sedadla a volant" loading="lazy" decoding="async">
+                    </a>
+                    <a href="images/web/large/ktm-po1.jpg" class="strip-item">
+                        <img src="images/web/ktm-po1.jpg" width="750" height="1000" alt="Nádrž a boční kryt motocyklu KTM 790 po detailingu" loading="lazy" decoding="async">
+                    </a>
+                    <a href="images/web/large/ktm-po2.jpg" class="strip-item">
+                        <img src="images/web/ktm-po2.jpg" width="750" height="1000" alt="Výfuk a kufrový rám motocyklu KTM 790 po detailingu" loading="lazy" decoding="async">
+                    </a>
+                    <a href="images/web/large/img-4758.jpg" class="strip-item">
+                        <img src="images/web/img-4758.jpg" width="750" height="1000" alt="Přední část motocyklu KTM 790 s plexištítem" loading="lazy" decoding="async">
+                    </a>
+                    <a href="images/web/large/img-4759.jpg" class="strip-item">
+                        <img src="images/web/img-4759.jpg" width="750" height="1000" alt="Celý motocykl KTM 790 po mytí" loading="lazy" decoding="async">
+                    </a>
+                    <a href="images/web/large/img-4761.jpg" class="strip-item">
+                        <img src="images/web/img-4761.jpg" width="750" height="1000" alt="Přední vidlice a kryt chladiče KTM 790" loading="lazy" decoding="async">
+                    </a>
+                    <a href="images/web/large/img-4762.jpg" class="strip-item">
+                        <img src="images/web/img-4762.jpg" width="750" height="1000" alt="Bok nádrže KTM 790 s logem 790" loading="lazy" decoding="async">
+                    </a>
+                    <a href="images/web/large/img-4745.jpg" class="strip-item">
+                        <img src="images/web/img-4745.jpg" width="750" height="1000" alt="Přední část KTM 790 s ochrannými rámy" loading="lazy" decoding="async">
+                    </a>
+                    <a href="images/web/large/img-4752.jpg" class="strip-item">
+                        <img src="images/web/img-4752.jpg" width="750" height="1000" alt="Přední vidlice s oranžovým krytem KTM 790" loading="lazy" decoding="async">
+                    </a>
+                    <a href="images/web/large/img-4755.jpg" class="strip-item">
+                        <img src="images/web/img-4755.jpg" width="750" height="1000" alt="Výfuk a kufrový rám KTM 790 zboku" loading="lazy" decoding="async">
+                    </a>
+                    <a href="images/web/large/img-4746.jpg" class="strip-item">
+                        <img src="images/web/img-4746.jpg" width="750" height="1000" alt="Oranžový kryt vidlice KTM 790 s logem" loading="lazy" decoding="async">
+                    </a>
+                    <a href="images/web/large/img-4753.jpg" class="strip-item">
+                        <img src="images/web/img-4753.jpg" width="750" height="1000" alt="Víčko nádrže KTM 790" loading="lazy" decoding="async">
+                    </a>
+                    <a href="images/web/large/img-4747.jpg" class="strip-item">
+                        <img src="images/web/img-4747.jpg" width="750" height="1000" alt="Detail výfuku KTM 790 s ochranným rámem" loading="lazy" decoding="async">
+                    </a>
+                    <a href="images/web/large/img-4742.jpg" class="strip-item">
+                        <img src="images/web/img-4742.jpg" width="750" height="1000" alt="Detail štítu a světla motocyklu" loading="lazy" decoding="async">
+                    </a>
+                </div>
+                <button type="button" class="strip-btn strip-next" aria-label="Další fotky">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 5l7 7-7 7"/></svg>
+                </button>
             </div>
         </div>
     </section>
@@ -1421,26 +464,6 @@
                     <p>Předáme vám čisté vozy. Můžete okamžitě vyrazit na cestu.</p>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section id="galerie" class="gallery-section">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Skutečné výsledky</span>
-                <h2 class="section-title">Rozdíl, který uvidíte okamžitě</h2>
-                </div>
-
-            <div class="comparison-container" id="comparison-slider">
-    <div class="comparison-img img-after" style="background-image: url('po.jpg');"></div>
-    <div class="comparison-img img-before" id="before-image"></div>
-    
-    <div class="img-label label-before">Před</div>
-    <div class="img-label label-after">Po</div>
-    <div class="slider-handle" id="slider-handle">
-        <div class="slider-button">↔</div>
-    </div>
-</div>
         </div>
     </section>
 
@@ -1482,23 +505,27 @@
                 <h2 class="section-title">Získejte nezávaznou nabídku</h2>
                 <p>Máte zájem o pravidelnou péči nebo jednorázové vyčištění flotily? Napište nám základní parametry a obratem se vám ozveme s návrhem řešení.</p>
                 
-                <p style="margin-top: 15px; margin-bottom: 25px; font-weight: bold; color: var(--text-light);">
+                <p class="contact-operator">
                     Provozovatel: Bc. Jan Kvapil
                 </p>
 
                 <div class="contact-details">
                     <div class="contact-detail-item">
-                        <span class="icon">📞</span>
+                        <span class="icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        </span>
                         <div>
-                            <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Telefonní kontakt</p>
-                            <a href="tel:+420602941455" style="font-weight: bold; color: var(--accent-blue); text-decoration: none;">+420 602 941 455</a>
+                            <p class="contact-detail-label">Telefonní kontakt</p>
+                            <a href="tel:+420602941455">+420 602 941 455</a>
                         </div>
                     </div>
                     <div class="contact-detail-item">
-                        <span class="icon">✉</span>
+                        <span class="icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        </span>
                         <div>
-                            <p style="font-size: 13px; color: var(--text-muted); margin: 0;">E-mailová adresa</p>
-                            <a href="mailto:info@indetail.cz" style="font-weight: bold; color: var(--accent-blue); text-decoration: none;">info@indetail.cz</a>
+                            <p class="contact-detail-label">E-mailová adresa</p>
+                            <a href="mailto:info@indetail.cz">info@indetail.cz</a>
                         </div>
                     </div>
                 </div>
@@ -1509,23 +536,23 @@
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="firma">Název firmy</label>
-                            <input type="text" id="firma" name="firma" placeholder="Např. Auto s.r.o." required>
+                            <input type="text" id="firma" name="firma" placeholder="Např. Auto s.r.o." autocomplete="organization" required>
                         </div>
                         <div class="form-group">
                             <label for="lokalita">Město / Lokalita</label>
-                            <input type="text" id="lokalita" name="lokalita" placeholder="Např. Praha, Pardubice" required>
+                            <input type="text" id="lokalita" name="lokalita" placeholder="Např. Praha, Pardubice" autocomplete="address-level2" required>
                         </div>
                         <div class="form-group">
                             <label for="pocet">Počet vozidel</label>
-                            <input type="number" id="pocet" name="pocet" placeholder="Např. 5" min="1" required>
+                            <input type="number" id="pocet" name="pocet" placeholder="Např. 5" min="1" autocomplete="off" required>
                         </div>
                         <div class="form-group">
                             <label for="tel">Telefon</label>
-                            <input type="tel" id="tel" name="tel" placeholder="+420 123 456 789" required>
+                            <input type="tel" id="tel" name="tel" placeholder="+420 123 456 789" autocomplete="tel" required>
                         </div>
                         <div class="form-group form-group-full">
                             <label for="email">E-mail</label>
-                            <input type="email" id="email" name="email" placeholder="jmeno@firma.cz" required>
+                            <input type="email" id="email" name="email" placeholder="jmeno@firma.cz" autocomplete="email" required>
                         </div>
                         <div class="form-group form-group-full">
                             <label for="zprava">Vaše zpráva</label>
@@ -1538,7 +565,7 @@
                 <div class="form-success-message" id="success-message">
                     <div class="success-icon">✓</div>
                     <h3 class="success-title">Děkujeme za poptávku!</h3>
-                    <p style="color: var(--text-muted); max-width: 300px; margin: 0 auto;">Váš požadavek jsme úspěšně přijali. Ozveme se vám s nabídkou do 24 hodin.</p>
+                    <p class="success-text">Váš požadavek jsme úspěšně přijali. Ozveme se vám s nabídkou do 24 hodin.</p>
                 </div>
             </div>
         </div>
@@ -1546,99 +573,36 @@
 
     <footer>
         <div class="container footer-wrapper">
-            <div class="footer-logo">
+            <a href="#" class="footer-logo" aria-label="IN-DETAIL – zpět na začátek stránky">
                 i<span>D</span> IN-DETAIL
-            </div>
+            </a>
             <div>
                 © 2026 IN-DETAIL.cz. Všechna práva vyhrazena.
             </div>
         </div>
     </footer>
 
-    <script>
-        // 1. STICKY HLAVIČKA
-        const header = document.getElementById('main-header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
+    <!-- Lightbox pro fotky z pruhu v galerii -->
+    <dialog id="lightbox" class="lightbox" aria-label="Zvětšená fotka">
+        <button type="button" class="lightbox-close" aria-label="Zavřít">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5.5 5.5l13 13M18.5 5.5l-13 13"/></svg>
+        </button>
+        <button type="button" class="lightbox-nav lightbox-prev" aria-label="Předchozí fotka">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.5 5l-7 7 7 7"/></svg>
+        </button>
+        <figure class="lightbox-figure">
+            <img class="lightbox-img" src="" alt="">
+            <figcaption class="lightbox-caption">
+                <span class="lightbox-text"></span>
+                <span class="lightbox-count"></span>
+            </figcaption>
+        </figure>
+        <button type="button" class="lightbox-nav lightbox-next" aria-label="Další fotka">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 5l7 7-7 7"/></svg>
+        </button>
+    </dialog>
 
-        // 2. AKTIVNÍ SEKCIONÁLNÍ LINKY V MENU PŘI SCROLLOVÁNÍ
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        window.addEventListener('scroll', () => {
-            let currentSectionId = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 120; // offset pro sticky header
-                if (window.scrollY >= sectionTop) {
-                    currentSectionId = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${currentSectionId}`) {
-                    link.classList.add('active');
-                }
-            });
-        });
-
-        // 3. INTERAKTIVNÍ SLIDER PŘED / PO (Srovnávací galerie)
-        const container = document.getElementById('comparison-slider');
-        const beforeImage = document.getElementById('before-image');
-        const handle = document.getElementById('slider-handle');
-
-        function moveSlider(x) {
-            const rect = container.getBoundingClientRect();
-            let position = ((x - rect.left) / rect.width) * 100;
-            
-            // Omezení posuvu v rozsahu 0% až 100%
-            if (position < 0) position = 0;
-            if (position > 100) position = 100;
-            
-            beforeImage.style.width = `${position}%`;
-            handle.style.left = `${position}%`;
-        }
-
-        // Ovládání myší
-        let isDragging = false;
-        container.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            moveSlider(e.clientX);
-        });
-        window.addEventListener('mouseup', () => { isDragging = false; });
-        window.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            moveSlider(e.clientX);
-        });
-
-        // Ovládání na mobilech (Dotyky)
-        container.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            moveSlider(e.touches[0].clientX);
-        });
-        window.addEventListener('touchend', () => { isDragging = false; });
-        window.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            moveSlider(e.touches[0].clientX);
-        });
-
-        // 4. ELEGANTNÍ ODESLÁNÍ FORMULÁŘE (Mockování bez reloadu stránky)
-        const form = document.getElementById('poptavka-form');
-        const successMsg = document.getElementById('success-message');
-
-        form.addEventListener('submit', (e) => {
-            e.preventDefault(); // Zabrání reloadu stránky
-
-            // Zde by v reálu probíhalo odeslání dat přes AJAX/Fetch na server
-            successMsg.classList.add('show');
-            form.reset(); // Vyčistí políčka
-        });
-    </script>
+    <script src="script.js"></script>
 
 </body>
 </html>
