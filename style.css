@@ -128,44 +128,42 @@ header.scrolled {
     justify-content: space-between;
 }
 
-/* LOGO PODLE GRAFICKÉHO NÁVRHU */
+/* LOGO PODLE VIZITKY: monogram iD vlevo, vedle něj nápis IN-DETAIL a pod ním text */
 .logo-placeholder {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
 }
 
-.logo-placeholder .logo-id {
-    font-family: var(--font-body);
-    font-size: 26px;
-    font-weight: 800;
-    color: var(--text-light);
-    border: 2px solid var(--text-light);
-    padding: 2px 8px;
-    letter-spacing: 1px;
-    position: relative;
+.logo-mark {
+    display: block;
+    width: auto;
+    height: 46px;
 }
 
-/* Dekorační hvězdička (detail čistoty) nad logem */
-.logo-placeholder .logo-id::after {
-    content: '✨';
-    font-size: 10px;
-    position: absolute;
-    top: -8px;
-    right: -8px;
+/* Nápis a text pod ním mají stejnou šířku, jako na vizitce */
+.logo-lockup {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    width: 236px;
 }
 
-.logo-placeholder .logo-text {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 3px;
+.logo-wordmark {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.logo-tagline {
+    display: block;
+    font-size: 8px;
+    font-weight: 500;
+    letter-spacing: 0.33em;
+    line-height: 1;
     text-transform: uppercase;
-    color: var(--text-light);
-    line-height: 1.1;
-}
-
-.logo-placeholder .logo-text span {
-    color: var(--accent-blue);
+    white-space: nowrap;
+    color: #f6f3ec;
 }
 
 nav ul {
@@ -364,7 +362,7 @@ section {
     background-color: var(--primary-dark);
     color: var(--text-light);
     /* Fotka flotily na pozadí s tmavým překrytím pro skvělou čitelnost textu */
-    background-image: linear-gradient(rgba(17, 26, 34, 0.85), rgba(17, 26, 34, 0.85)), url('flotila.jpg');
+    background-image: linear-gradient(rgba(17, 26, 34, 0.85), rgba(17, 26, 34, 0.85)), url('images/flotila.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed; /* Parallax efekt - pozadí se při skrolování jemně hýbe */
@@ -420,7 +418,7 @@ section {
     background-color: rgba(17, 26, 34, 0.95);
 }
 
-.company-item h4 {
+.company-item h3 {
     display: flex;
     flex-direction: column; /* ikona nad nadpisem, v úzké kartě se nadpis tak vejde na jeden řádek */
     align-items: flex-start;
@@ -615,7 +613,7 @@ section {
 /* EXKLUZIVNÍ STRUKTURA PRO ZVÝRAZNĚNOU KARTU ✨ */
 .program-card-detail.featured {
     border-top-color: var(--text-light);
-    background-color: rgba(52, 152, 219, 0.08);
+    background-color: #162636; /* tmavé pozadí s lehkým modrým nádechem (dřív průhledná modrá přes světlé pozadí sekce) */
     border-left: 1.5px solid var(--accent-blue);
     border-right: 1.5px solid var(--accent-blue);
     border-bottom: 1.5px solid var(--accent-blue);
@@ -629,7 +627,7 @@ section {
 }
 
 .program-card-detail.featured::before {
-    content: 'DOPORUČUJEME ✨';
+    content: 'TOP VARIANTA ✨';
     position: absolute;
     bottom: -12px; /* na spodním okraji, nahoře je ikona */
     left: 50%;
@@ -704,9 +702,38 @@ section {
 .program-desc {
     font-size: 14px;
     color: #c9d2d8;
-    line-height: 1.7;
+    line-height: 1.6;
     margin-bottom: 35px;
     flex-grow: 1;
+}
+
+.program-intro {
+    margin-bottom: 14px;
+}
+
+/* Odrážky v popisu programu (zatržítka jako u karet služeb) */
+.program-list li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 10px;
+}
+
+.program-list li:last-child {
+    margin-bottom: 0;
+}
+
+.program-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #8cc6ee;
+    font-weight: 700;
+}
+
+.program-outro {
+    margin-top: 16px;
+    color: #dfe6ea;
+    font-style: italic;
 }
 
 .program-price-box {
@@ -731,10 +758,60 @@ section {
     font-weight: 700;
 }
 
+/* Malé "od" před cenou (program Work class) */
+.program-price-from {
+    font-size: 16px;
+    font-weight: 600;
+    color: #c9d2d8;
+    margin-right: 4px;
+}
+
+/* Poznámka pod dobou čištění, např. "v závislosti na znečištění" */
+.program-time-note {
+    display: block;
+    margin-top: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: #c9d2d8;
+}
+
+/* Ve třech sloupcích mají nadpisy karet stejnou výšku, ať popisky začínají ve stejné úrovni (i když je u jedné karty navíc poznámka) */
+@media (min-width: 1025px) {
+    .program-header {
+        min-height: 90px;
+    }
+}
+
+/* Obdélníček s upozorněním pod ceníkem */
+.pricing-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 16px 28px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.06);
+    color: #dfe6ea;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.pricing-note svg {
+    flex: 0 0 auto;
+    width: 20px;
+    height: 20px;
+    color: #8cc6ee;
+}
+
 /* Spodní doplňující info k ceníku */
 .pricing-meta {
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-columns: 1fr; /* boxy pod sebou na celou šířku, protože druhý je kvůli mapě široký */
     gap: 30px;
     margin-top: 60px;
 }
@@ -791,6 +868,195 @@ section {
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+/* Tři výhody vedle sebe */
+.extra-benefit-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+/* --- Výjezd k zákazníkovi (dopravné) a mapa zón --- */
+.travel-fee {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr; /* vlevo text a ceny, vpravo mapa */
+    gap: 40px;
+    align-items: start;
+    margin-top: 8px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.travel-map {
+    position: relative;
+    display: block;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    cursor: zoom-in;
+}
+
+.travel-map img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2; /* poměr stran mapy, ať se při načítání nic nehýbe */
+    transition: transform 0.4s ease;
+}
+
+.travel-map:hover img {
+    transform: scale(1.03);
+}
+
+.travel-map:focus-visible {
+    outline: 3px solid var(--accent-blue);
+    outline-offset: 3px;
+}
+
+/* Popisek "Zvětšit mapu" v rohu */
+.travel-map-hint {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 14px;
+    border-radius: 20px;
+    background-color: rgba(17, 26, 34, 0.88);
+    color: var(--text-light);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.travel-map-hint svg {
+    width: 16px;
+    height: 16px;
+}
+
+@media (max-width: 900px) {
+    .extra-benefit-list,
+    .travel-fee {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .travel-tiers {
+        gap: 8px;
+    }
+    .travel-tiers li {
+        padding: 12px 4px;
+    }
+    .travel-tiers strong {
+        font-size: 14px;
+    }
+    .travel-map-hint {
+        right: 8px;
+        bottom: 8px;
+        padding: 5px 10px;
+        font-size: 11px;
+    }
+    .travel-map-hint svg {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+.travel-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    line-height: 1.3;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-light);
+}
+
+.travel-title svg {
+    flex: 0 0 auto;
+    width: 24px;
+    height: 24px;
+}
+
+.travel-intro {
+    margin: 12px 0 18px;
+    font-size: 12.5px;
+    color: #c9d2d8;
+}
+
+/* Tři pásma vzdálenosti vedle sebe jako dlaždice */
+.travel-tiers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.travel-tiers li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 8px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.04);
+    font-size: 12.5px;
+    color: #dfe6ea;
+    text-align: center;
+}
+
+.travel-tiers strong {
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--text-light);
+}
+
+.travel-fee .travel-free {
+    color: #5ed39a; /* "ZDARMA" zeleně */
+}
+
+.travel-subtitle {
+    margin: 26px 0 12px;
+    font-size: 12.5px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-light);
+}
+
+.travel-bonus li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 8px;
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: #c9d2d8;
+}
+
+.travel-bonus li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #8cc6ee;
+    font-weight: 700;
+}
+
+.travel-bonus strong {
+    color: var(--text-light);
+}
+
+/* Dodatečné upozornění malým písmem */
+.travel-note {
+    margin-top: 16px;
+    font-size: 11px;
+    line-height: 1.5;
+    font-style: italic;
+    color: #a9b8c1;
 }
 
 .extra-benefit-item {
@@ -874,6 +1140,79 @@ section {
 .step-card p {
     color: #c9d2d8;
     font-size: 13.5px;
+}
+
+/* --- BONUS: PŘÍPRAVA VOZIDLA NA PRODEJ --- */
+.bonus {
+    background: linear-gradient(135deg, #1b5f91 0%, #2477ad 100%);
+    color: var(--text-light);
+    text-align: center;
+    padding: 80px 0;
+}
+
+.bonus-badge {
+    display: inline-block;
+    margin-bottom: 18px;
+    padding: 6px 18px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.bonus .section-title {
+    color: var(--text-light);
+    margin-bottom: 44px;
+}
+
+.bonus-points {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.bonus-point {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    padding: 32px 24px;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.bonus-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+.bonus-icon svg {
+    width: 26px;
+    height: 26px;
+}
+
+@media (max-width: 768px) {
+    .bonus {
+        padding: 60px 0;
+    }
+    .bonus-points {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
 }
 
 /* --- INTERAKTIVNÍ SROVNÁVACÍ GALERIE (PŘED / PO) --- */
@@ -1198,6 +1537,17 @@ html.lightbox-open {
 .lightbox-prev { left: 24px; }
 .lightbox-next { right: 24px; }
 
+/* Jedna samostatná fotka (např. mapa): bez šipek a počítadla, širší obrázek */
+.lightbox.is-single .lightbox-nav,
+.lightbox.is-single .lightbox-count {
+    display: none;
+}
+
+.lightbox.is-single .lightbox-img {
+    max-width: min(94vw, 1200px);
+    max-height: 82vh;
+}
+
 /* --- REFERENCE --- */
 .testimonials {
     background-color: var(--bg-light);
@@ -1240,7 +1590,139 @@ html.lightbox-open {
     text-transform: uppercase;
     font-size: 12px;
     letter-spacing: 2px;
-    color: var(--accent-blue);
+    color: #2077b2; /* tmavší modrá, aby malý text na bílé měl kontrast min. 4,5:1 */
+}
+
+/* --- ROTUJÍCÍ RECENZE --- */
+.svg-sprite {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.reviews {
+    padding: 56px 56px 28px;
+}
+
+.reviews-viewport {
+    overflow: hidden;
+    touch-action: pan-y; /* vodorovné přejetí prstem přepíná recenze */
+}
+
+.reviews-track {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Všechny recenze jsou stejně vysoké (výšku určuje nejdelší), takže se box při přepínání nemění */
+.review {
+    flex: 0 0 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.review-stars {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 22px;
+}
+
+.review-stars svg {
+    width: 26px;
+    height: 26px;
+    fill: #f5b014;
+    stroke: #e09b00;
+    stroke-width: 1;
+    stroke-linejoin: round;
+}
+
+.review .testimonial-text {
+    font-size: 18px;
+    margin-bottom: 24px;
+}
+
+.reviews-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 26px;
+}
+
+.reviews-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    border: 1.5px solid rgba(52, 152, 219, 0.35);
+    background-color: var(--text-light);
+    color: #2077b2;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.reviews-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.reviews-btn:hover {
+    background-color: var(--accent-blue);
+    border-color: var(--accent-blue);
+    color: var(--text-light);
+}
+
+.reviews-dots {
+    display: flex;
+    gap: 2px;
+}
+
+/* Tlačítko tečky má větší plochu pro klepnutí, vykreslená je jen malá tečka uvnitř */
+.reviews-dot {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.reviews-dot::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border-radius: 50%;
+    background-color: rgba(52, 152, 219, 0.28);
+    transition: var(--transition-smooth);
+}
+
+.reviews-dot:hover::before {
+    background-color: rgba(52, 152, 219, 0.6);
+}
+
+.reviews-dot[aria-current="true"]::before {
+    background-color: var(--accent-blue);
+    transform: scale(1.3);
+}
+
+.reviews-btn:focus-visible,
+.reviews-dot:focus-visible {
+    outline: 3px solid var(--accent-blue);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reviews-track {
+        transition: none;
+    }
 }
 
 /* --- O NÁS --- */
@@ -1249,6 +1731,18 @@ html.lightbox-open {
     grid-template-columns: 1.2fr 0.8fr;
     gap: 60px;
     align-items: center;
+}
+
+/* Fotka vpravo v sekci "O naší firmě" */
+.about-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 50% 40%; /* vizitka na volantu zůstane uprostřed výřezu */
+    border-radius: 4px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
 }
 
 .about-text h3 {
@@ -1302,8 +1796,20 @@ html.lightbox-open {
 
 .contact-info .contact-operator {
     margin: 15px 0 25px;
+    font-style: normal; /* <address> je jinak kurzívou */
     font-weight: 700;
+    line-height: 1.7;
     color: var(--text-light);
+}
+
+.contact-operator-label {
+    display: block;
+    margin-bottom: 2px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8cc6ee;
 }
 
 .contact-details {
@@ -1481,15 +1987,17 @@ footer {
     align-items: center;
 }
 
-.footer-logo {
-    font-size: 18px;
-    font-weight: 800;
-    color: var(--text-light);
-    letter-spacing: 1px;
+/* Logo v patičce je stejné jako v hlavičce, ale vždy celé (i s textem pod nápisem) a bez zmenšování */
+.logo-footer .logo-mark {
+    height: 46px;
 }
 
-.footer-logo span {
-    color: var(--accent-blue);
+.logo-footer .logo-lockup {
+    width: 236px;
+}
+
+.logo-footer .logo-tagline {
+    display: block;
 }
 
 /* --- RESPONSIVITA --- */
@@ -1524,6 +2032,20 @@ footer {
     }
     .benefits-grid {
         gap: 56px; /* ikona vyčnívá nad kartu a potřebuje místo */
+    }
+    .reviews {
+        padding: 46px 22px 22px;
+    }
+    .review .testimonial-text {
+        font-size: 16px;
+    }
+    .review-stars svg {
+        width: 22px;
+        height: 22px;
+    }
+    .testimonial-box::before {
+        font-size: 60px;
+        left: 16px;
     }
     .services-grid, .steps-grid {
         grid-template-columns: 1fr;
@@ -1588,4 +2110,67 @@ footer {
     .label-after {
         right: 12px;
     }
+}
+
+/* --- HLAVIČKA: logo a menu na užších obrazovkách --- */
+nav ul a,
+.nav-contact .phone-number {
+    white-space: nowrap; /* odkazy v menu a telefon se nezalamují */
+}
+
+/* Do 1279 px se text pod nápisem schová a logo se zmenší, aby se vešlo i menu a telefon */
+@media (max-width: 1279px) {
+    .logo-mark {
+        height: 40px;
+    }
+    .logo-lockup {
+        width: 170px;
+    }
+    .logo-tagline {
+        display: none;
+    }
+}
+
+@media (max-width: 1100px) {
+    nav ul {
+        gap: 16px;
+    }
+}
+
+@media (max-width: 900px) {
+    nav ul {
+        gap: 11px;
+    }
+    nav ul a {
+        font-size: 12px;
+        letter-spacing: 0.5px;
+    }
+    .nav-contact .phone-number {
+        font-size: 15px;
+    }
+}
+
+/* Mobil: menu je skryté, vedle loga zůstává jen telefon */
+@media (max-width: 768px) {
+    .logo-placeholder {
+        gap: 11px;
+    }
+    .logo-mark {
+        height: 36px;
+    }
+    .logo-lockup {
+        width: 138px;
+    }
+}
+
+/* Hlavička má v klidovém stavu stejnou výšku jako odsazení stránky (90 px), takže pod ní neprosvítá pozadí.
+   Po rolování se zmenší (třída .scrolled). */
+header:not(.scrolled) {
+    display: flex;
+    align-items: center;
+    min-height: 90px;
+}
+
+header:not(.scrolled) .nav-wrapper {
+    width: 100%;
 }

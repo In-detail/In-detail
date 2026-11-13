@@ -76,7 +76,8 @@ window.addEventListener('scroll', () => {
     sections.forEach(section => {
         const sectionTop = section.offsetTop - 120; // offset pro sticky header
         if (window.scrollY >= sectionTop) {
-            currentSectionId = section.getAttribute('id');
+            // sekce bez vlastní položky v menu (např. bonus) se počítá k položce uvedené v data-nav
+            currentSectionId = section.dataset.nav || section.getAttribute('id');
         }
     });
 
@@ -154,6 +155,7 @@ const stripLinks = [...photoStrip.querySelectorAll('.strip-item')];
 let lightboxIndex = 0;
 
 function showPhoto(i) {
+    if (lightbox.classList.contains('is-single')) return; // u jediné fotky (mapa) se nelistuje
     const total = stripLinks.length;
     lightboxIndex = (i + total) % total; // z poslední fotky se jde na první a naopak
     const link = stripLinks[lightboxIndex];
@@ -176,12 +178,33 @@ function showPhoto(i) {
 }
 
 function openLightbox(i) {
+    lightbox.classList.remove('is-single');
     showPhoto(i);
     if (!lightbox.open) {
         lightbox.showModal();
         document.documentElement.classList.add('lightbox-open'); // zamkne posun stránky na pozadí
     }
 }
+
+// Jedna samostatná fotka (např. mapa dopravného) bez šipek a počítadla
+function openSingleImage(src, alt) {
+    lightbox.classList.add('is-single');
+    lightboxImg.src = src;
+    lightboxImg.alt = alt;
+    lightboxText.textContent = alt;
+    lightboxCount.textContent = '';
+    if (!lightbox.open) {
+        lightbox.showModal();
+        document.documentElement.classList.add('lightbox-open');
+    }
+}
+
+document.querySelectorAll('.travel-map').forEach((link) => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault(); // bez JavaScriptu se mapa otevře jako samostatný obrázek
+        openSingleImage(link.href, link.querySelector('img').alt);
+    });
+});
 
 stripLinks.forEach((link, i) => {
     link.addEventListener('click', (e) => {
@@ -220,8 +243,98 @@ lightbox.addEventListener('pointerup', (e) => {
 // po zavření odemknout stránku a ukázat v pruhu fotku, u které jsme skončili
 lightbox.addEventListener('close', () => {
     document.documentElement.classList.remove('lightbox-open');
-    stripLinks[lightboxIndex].scrollIntoView({ block: 'nearest', inline: 'center' });
+    // pruh fotek se posune jen po prohlížení fotek z pruhu, ne po zobrazení mapy
+    if (!lightbox.classList.contains('is-single')) {
+        stripLinks[lightboxIndex].scrollIntoView({ block: 'nearest', inline: 'center' });
+    }
 });
+
+// 3d. ROTUJÍCÍ RECENZE
+(function () {
+    const root = document.getElementById('reviews');
+    if (!root) return;
+
+    const track = root.querySelector('.reviews-track');
+    const viewport = root.querySelector('.reviews-viewport');
+    const slides = [...root.querySelectorAll('.review')];
+    const dots = [...root.querySelectorAll('.reviews-dot')];
+    const AUTO_MS = 8000; // jak dlouho se jedna recenze zobrazuje
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    let index = 0;
+    let timer = null;
+    let hovering = false;
+    let focusing = false;
+    let inView = false;
+
+    function show(i) {
+        index = (i + slides.length) % slides.length; // za poslední recenzí následuje první
+        track.style.transform = `translateX(-${index * 100}%)`;
+        slides.forEach((slide, n) => {
+            const active = n === index;
+            slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+            slide.inert = !active; // neviditelné recenze nejdou vybrat ani přečíst čtečkou
+        });
+        dots.forEach((dot, n) => dot.setAttribute('aria-current', n === index ? 'true' : 'false'));
+    }
+
+    // Automatické přepínání běží jen když je box vidět, nad ním není myš ani fokus,
+    // karta prohlížeče je aktivní a uživatel nemá zapnuté omezení pohybu.
+    function stop() {
+        clearInterval(timer);
+        timer = null;
+        track.setAttribute('aria-live', 'polite'); // ruční přepnutí ohlásí čtečka obrazovky
+    }
+
+    function start() {
+        if (timer || reduceMotion.matches || hovering || focusing || !inView || document.hidden) return;
+        track.setAttribute('aria-live', 'off'); // při samočinné rotaci čtečku neobtěžovat
+        timer = setInterval(() => show(index + 1), AUTO_MS);
+    }
+
+    function go(i) {
+        show(i);
+        stop();
+        start(); // po ručním přepnutí se čeká znovu celý interval
+    }
+
+    root.querySelector('.reviews-prev').addEventListener('click', () => go(index - 1));
+    root.querySelector('.reviews-next').addEventListener('click', () => go(index + 1));
+    dots.forEach((dot, n) => dot.addEventListener('click', () => go(n)));
+
+    root.addEventListener('mouseenter', () => { hovering = true; stop(); });
+    root.addEventListener('mouseleave', () => { hovering = false; start(); });
+    root.addEventListener('focusin', () => { focusing = true; stop(); });
+    root.addEventListener('focusout', (e) => {
+        if (!root.contains(e.relatedTarget)) { focusing = false; start(); }
+    });
+    root.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') go(index - 1);
+        if (e.key === 'ArrowRight') go(index + 1);
+    });
+
+    // přejetí prstem doleva/doprava
+    let swipeStartX = null;
+    viewport.addEventListener('pointerdown', (e) => {
+        swipeStartX = e.pointerType === 'touch' ? e.clientX : null;
+    });
+    viewport.addEventListener('pointerup', (e) => {
+        if (swipeStartX === null) return;
+        const distance = e.clientX - swipeStartX;
+        swipeStartX = null;
+        if (Math.abs(distance) > 50) go(index + (distance < 0 ? 1 : -1));
+    });
+
+    new IntersectionObserver((entries) => {
+        inView = entries[0].isIntersecting;
+        if (inView) start(); else stop();
+    }, { threshold: 0.4 }).observe(root);
+
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+    reduceMotion.addEventListener('change', () => { stop(); start(); });
+
+    show(0);
+})();
 
 // 4. ELEGANTNÍ ODESLÁNÍ FORMULÁŘE (Mockování bez reloadu stránky)
 const form = document.getElementById('poptavka-form');
